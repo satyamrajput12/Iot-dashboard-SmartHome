@@ -1,3 +1,4 @@
+
 <?php $__env->startSection('title', 'My Devices'); ?>
 <?php $__env->startSection('page-title', 'My Devices'); ?>
 

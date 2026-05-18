@@ -369,6 +369,7 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
+            pointer-events: none;
         }
         .chatbot-btn {
             width: 60px;
@@ -386,6 +387,7 @@
             border: 2px solid rgba(255,255,255,0.1);
             outline: none;
             position: relative;
+            pointer-events: auto;
         }
         .chatbot-btn::after {
             content: ''; position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px;

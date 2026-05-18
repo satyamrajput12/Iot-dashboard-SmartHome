@@ -1,3 +1,4 @@
+
 <?php $__env->startSection('title', 'My Dashboard'); ?>
 <?php $__env->startSection('page-title', 'My Smart Home'); ?>
 

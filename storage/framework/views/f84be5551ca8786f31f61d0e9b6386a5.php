@@ -1,3 +1,4 @@
+
 <?php $__env->startSection('title', 'Energy Monitoring'); ?>
 <?php $__env->startSection('page-title', 'Energy Monitoring'); ?>
 
