@@ -45,6 +45,8 @@ Route::middleware(['auth', 'active.user'])->prefix('dashboard')->name('user.')->
 
     // New Modules
     Route::get('billing', [BillingController::class, 'index'])->name('billing.index');
+    Route::post('billing/purchase', [BillingController::class, 'purchase'])->name('billing.purchase');
+    Route::post('billing/verify-payment', [BillingController::class, 'verifyPayment'])->name('billing.verify-payment');
     Route::get('energy', [EnergyController::class, 'index'])->name('energy.index');
     Route::get('rooms', [RoomController::class, 'index'])->name('rooms.index');
     Route::post('notifications/read-all', [NotificationController::class, 'markAllAsRead'])->name('notifications.read-all');
@@ -60,6 +62,12 @@ Route::middleware(['auth', 'active.user'])->prefix('dashboard')->name('user.')->
 
     // Profile Settings
     Route::post('profile/photo', [\App\Http\Controllers\User\ProfileController::class, 'updatePhoto'])->name('profile.photo');
+
+    // Services / Book Tech Team
+    Route::get('services', [\App\Http\Controllers\User\ServiceController::class, 'index'])->name('services.index');
+    Route::post('services/book', [\App\Http\Controllers\User\ServiceController::class, 'book'])->name('services.book');
+    Route::post('services/verify-payment', [\App\Http\Controllers\User\ServiceController::class, 'verifyPayment'])->name('services.verify-payment');
+    Route::post('contact-us', [\App\Http\Controllers\User\ServiceController::class, 'contactUs'])->name('contact.submit');
 
     // Real-time polling endpoint
     Route::get('devices/statuses/live', [DeviceController::class, 'getStatuses'])->name('devices.statuses');
@@ -87,5 +95,17 @@ Route::middleware(['auth', 'active.user', 'admin'])->prefix('admin')->name('admi
 
     // Logs / Troubleshooting
     Route::get('/logs', [AdminController::class, 'logs'])->name('logs');
-    Route::post('/devices/{device}/simulate-error', [AdminController::class, 'simulateError'])->name('devices.simulate-error');
+
+    // Services / Tech Team Requests
+    Route::get('/services', [AdminController::class, 'serviceRequests'])->name('services.index');
+    Route::patch('/services/{serviceRequest}/approve', [AdminController::class, 'approveServiceRequest'])->name('services.approve');
+    Route::patch('/services/{serviceRequest}/reject', [AdminController::class, 'rejectServiceRequest'])->name('services.reject');
+});
+
+// =============================================
+// INDUSTRIAL IOT ROUTES
+// =============================================
+Route::middleware(['auth'])->group(function () {
+    Route::get('/solutions/{slug}', [\App\Http\Controllers\IndustrialSolutionController::class, 'show'])->name('solutions.show');
+    Route::get('/api/solutions/{slug}/telemetry', [\App\Http\Controllers\IndustrialSolutionController::class, 'telemetryApi'])->name('solutions.telemetry');
 });

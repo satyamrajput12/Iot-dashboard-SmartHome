@@ -32,10 +32,30 @@
                         <label class="form-label fw-500">Device Type <span class="text-danger">*</span></label>
                         <select name="type" class="form-select @error('type') is-invalid @enderror" id="typeSelect" onchange="toggleTempField()">
                             <option value="">— Select Type —</option>
-                            <option value="thermostat" {{ old('type')=='thermostat'?'selected':'' }}>🌡️ Thermostat</option>
-                            <option value="light"      {{ old('type')=='light'?'selected':'' }}>💡 Light</option>
-                            <option value="alarm"      {{ old('type')=='alarm'?'selected':'' }}>🔔 Alarm</option>
-                            <option value="camera"     {{ old('type')=='camera'?'selected':'' }}>📹 Camera</option>
+                            <option value="thermostat" {{ old('type') == 'thermostat' ? 'selected' : '' }}>🌡️ Thermostat</option>
+                            <option value="light" {{ old('type') == 'light' ? 'selected' : '' }}>💡 Light</option>
+                            <option value="alarm" {{ old('type') == 'alarm' ? 'selected' : '' }}>🔔 Alarm</option>
+                            <option value="camera" {{ old('type') == 'camera' ? 'selected' : '' }}>📹 Camera</option>
+                            <option value="smart_plug" {{ old('type') == 'smart_plug' ? 'selected' : '' }}>🔌 Smart Plug</option>
+                            <option value="door_lock" {{ old('type') == 'door_lock' ? 'selected' : '' }}>🔒 Door Lock</option>
+                            <option value="motion_sensor" {{ old('type') == 'motion_sensor' ? 'selected' : '' }}>🚶 Motion Sensor</option>
+                            <option value="smoke_detector" {{ old('type') == 'smoke_detector' ? 'selected' : '' }}>💨 Smoke Detector</option>
+                            <option value="water_sensor" {{ old('type') == 'water_sensor' ? 'selected' : '' }}>💧 Water Leak Sensor</option>
+                            <option value="blinds" {{ old('type') == 'blinds' ? 'selected' : '' }}>🪟 Smart Blinds</option>
+                            <option value="speaker" {{ old('type') == 'speaker' ? 'selected' : '' }}>🔊 Smart Speaker</option>
+                            <option value="vacuum" {{ old('type') == 'vacuum' ? 'selected' : '' }}>🧹 Robot Vacuum</option>
+                            <option value="air_purifier" {{ old('type') == 'air_purifier' ? 'selected' : '' }}>🌬️ Air Purifier</option>
+                            <option value="tv" {{ old('type') == 'tv' ? 'selected' : '' }}>📺 Smart TV</option>
+                            <option value="garage_door" {{ old('type') == 'garage_door' ? 'selected' : '' }}>🚪 Garage Door</option>
+                            <option value="fridge" {{ old('type') == 'fridge' ? 'selected' : '' }}>🧊 Smart Fridge</option>
+                            <option value="oven" {{ old('type') == 'oven' ? 'selected' : '' }}>♨️ Smart Oven</option>
+                            <option value="washer" {{ old('type') == 'washer' ? 'selected' : '' }}>🧺 Smart Washer</option>
+                            <option value="dryer" {{ old('type') == 'dryer' ? 'selected' : '' }}>👕 Smart Dryer</option>
+                            <option value="kettle" {{ old('type') == 'kettle' ? 'selected' : '' }}>☕ Smart Kettle</option>
+                            <option value="fan" {{ old('type') == 'fan' ? 'selected' : '' }}>🌀 Smart Fan</option>
+                            <option value="mirror" {{ old('type') == 'mirror' ? 'selected' : '' }}>🪞 Smart Mirror</option>
+                            <option value="pet_feeder" {{ old('type') == 'pet_feeder' ? 'selected' : '' }}>🐕 Pet Feeder</option>
+                            <option value="plant_monitor" {{ old('type') == 'plant_monitor' ? 'selected' : '' }}>🌱 Plant Monitor</option>
                         </select>
                         @error('type') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>

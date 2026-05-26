@@ -16,10 +16,30 @@
         <div class="col-6 col-md-2">
             <select name="type" class="form-select form-select-sm">
                 <option value="">All Types</option>
-                <option value="thermostat" {{ request('type')=='thermostat'?'selected':'' }}>Thermostat</option>
-                <option value="light"      {{ request('type')=='light'?'selected':'' }}>Light</option>
-                <option value="alarm"      {{ request('type')=='alarm'?'selected':'' }}>Alarm</option>
-                <option value="camera"     {{ request('type')=='camera'?'selected':'' }}>Camera</option>
+                <option value="thermostat" {{ request('type') == 'thermostat' ? 'selected' : '' }}>Thermostat</option>
+                <option value="light" {{ request('type') == 'light' ? 'selected' : '' }}>Light</option>
+                <option value="alarm" {{ request('type') == 'alarm' ? 'selected' : '' }}>Alarm</option>
+                <option value="camera" {{ request('type') == 'camera' ? 'selected' : '' }}>Camera</option>
+                <option value="smart_plug" {{ request('type') == 'smart_plug' ? 'selected' : '' }}>Smart Plug</option>
+                <option value="door_lock" {{ request('type') == 'door_lock' ? 'selected' : '' }}>Door Lock</option>
+                <option value="motion_sensor" {{ request('type') == 'motion_sensor' ? 'selected' : '' }}>Motion Sensor</option>
+                <option value="smoke_detector" {{ request('type') == 'smoke_detector' ? 'selected' : '' }}>Smoke Detector</option>
+                <option value="water_sensor" {{ request('type') == 'water_sensor' ? 'selected' : '' }}>Water Leak Sensor</option>
+                <option value="blinds" {{ request('type') == 'blinds' ? 'selected' : '' }}>Smart Blinds</option>
+                <option value="speaker" {{ request('type') == 'speaker' ? 'selected' : '' }}>Smart Speaker</option>
+                <option value="vacuum" {{ request('type') == 'vacuum' ? 'selected' : '' }}>Robot Vacuum</option>
+                <option value="air_purifier" {{ request('type') == 'air_purifier' ? 'selected' : '' }}>Air Purifier</option>
+                <option value="tv" {{ request('type') == 'tv' ? 'selected' : '' }}>Smart TV</option>
+                <option value="garage_door" {{ request('type') == 'garage_door' ? 'selected' : '' }}>Garage Door</option>
+                <option value="fridge" {{ request('type') == 'fridge' ? 'selected' : '' }}>Smart Fridge</option>
+                <option value="oven" {{ request('type') == 'oven' ? 'selected' : '' }}>Smart Oven</option>
+                <option value="washer" {{ request('type') == 'washer' ? 'selected' : '' }}>Smart Washer</option>
+                <option value="dryer" {{ request('type') == 'dryer' ? 'selected' : '' }}>Smart Dryer</option>
+                <option value="kettle" {{ request('type') == 'kettle' ? 'selected' : '' }}>Smart Kettle</option>
+                <option value="fan" {{ request('type') == 'fan' ? 'selected' : '' }}>Smart Fan</option>
+                <option value="mirror" {{ request('type') == 'mirror' ? 'selected' : '' }}>Smart Mirror</option>
+                <option value="pet_feeder" {{ request('type') == 'pet_feeder' ? 'selected' : '' }}>Pet Feeder</option>
+                <option value="plant_monitor" {{ request('type') == 'plant_monitor' ? 'selected' : '' }}>Plant Monitor</option>
             </select>
         </div>
         <div class="col-6 col-md-2">
@@ -104,12 +124,7 @@
                             <button class="btn btn-sm btn-warning py-0 px-2" style="font-size:.75rem"
                                     onclick="showRejectModal({{ $device->id }}, '{{ addslashes($device->name) }}')">✗</button>
                             @endif
-                            <form method="POST" action="{{ route('admin.devices.simulate-error', $device) }}">
-                                @csrf
-                                <button class="btn btn-sm btn-light py-0 px-2" style="font-size:.75rem" title="Simulate Error">
-                                    <i class="bi bi-bug"></i>
-                                </button>
-                            </form>
+
                             <form method="POST" action="{{ route('admin.devices.delete', $device) }}"
                                   onsubmit="return confirm('Permanently delete {{ $device->name }}?')">
                                 @csrf @method('DELETE')
@@ -156,8 +171,9 @@
 <script>
 function showRejectModal(id, name) {
     document.getElementById('rejectDeviceName').textContent = name;
-    document.getElementById('rejectForm').action = `/admin/devices/${id}/reject`;
-    new bootstrap.Modal(document.getElementById('rejectModal')).show();
+    let url = "{{ route('admin.devices.reject', 'REPLACE_ID') }}";
+    document.getElementById('rejectForm').action = url.replace('REPLACE_ID', id);
+    bootstrap.Modal.getOrCreateInstance(document.getElementById('rejectModal')).show();
 }
 </script>
 @endpush

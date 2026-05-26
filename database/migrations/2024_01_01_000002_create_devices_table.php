@@ -16,8 +16,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Owner
             $table->string('name');                        // Device name (e.g., "Living Room Light")
-            $table->enum('type', ['thermostat', 'light', 'alarm', 'camera']); // Device category
+            $table->string('type'); // Device category (e.g., thermostat, light, smart_plug, etc.)
             $table->string('location');                    // Room/area (e.g., "Living Room")
+            $table->string('image')->nullable();           // Device image
             $table->enum('status', ['on', 'off'])->default('off'); // Power state
             $table->decimal('temperature', 5, 2)->nullable(); // For thermostats (°C)
             $table->enum('approval_status', ['pending', 'approved', 'rejected'])->default('pending');

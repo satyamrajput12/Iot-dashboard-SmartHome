@@ -5,50 +5,76 @@
 @push('styles')
 <style>
     .room-card {
-        background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
-        backdrop-filter: var(--glass-blur);
-        border-radius: 24px;
-        border: 1px solid var(--glass-border);
-        padding: 1.5rem;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(50px);
+        -webkit-backdrop-filter: blur(50px);
+        border-radius: 32px;
+        border: 1px solid rgba(255,255,255,0.08);
+        padding: 1.8rem;
+        transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         cursor: pointer;
         display: block;
         text-decoration: none;
         color: inherit;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .room-card::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 100%;
+        background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+        opacity: 0; transition: opacity 0.4s;
     }
     .room-card:hover {
         transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(59, 130, 246, 0.2);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 0 20px rgba(255, 181, 167, 0.2);
         border-color: rgba(255, 255, 255, 0.2);
     }
+    .room-card:hover::before { opacity: 1; }
+    
     .room-icon {
-        width: 60px; height: 60px;
-        border-radius: 16px;
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+        width: 64px; height: 64px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
         display: flex; align-items: center; justify-content: center;
-        font-size: 1.8rem; color: #fff;
-        margin-bottom: 1rem;
+        font-size: 1.8rem; color: #ffffff;
+        margin-bottom: 1.5rem;
         border: 1px solid rgba(255,255,255,0.1);
+        box-shadow: inset 0 0 15px rgba(255,255,255,0.05);
+        transition: all 0.3s ease;
     }
+    .room-card:hover .room-icon {
+        background: rgba(255, 181, 167, 0.15);
+        color: #ffb5a7;
+        box-shadow: 0 0 20px rgba(255, 181, 167, 0.4), inset 0 0 10px rgba(255, 181, 167, 0.2);
+        border-color: rgba(255, 181, 167, 0.5);
+        transform: scale(1.1) rotate(5deg);
+    }
+    
     .room-title {
-        font-family: 'Space Grotesk', sans-serif;
-        font-weight: 600;
-        font-size: 1.2rem;
+        font-family: 'DotGothic16', sans-serif;
+        font-size: 1.5rem;
         margin-bottom: 0.5rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #ffffff;
     }
+    
     .health-ring {
         width: 45px; height: 45px;
         border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
         font-size: 0.8rem; font-weight: bold;
-        background: conic-gradient(var(--primary) var(--health-deg), rgba(255,255,255,0.1) 0deg);
+        background: conic-gradient(#ffb5a7 var(--health-deg), rgba(255,255,255,0.1) 0deg);
         position: relative;
+        box-shadow: 0 0 10px rgba(255, 181, 167, 0.2);
     }
     .health-ring::after {
         content: ''; position: absolute;
-        width: 35px; height: 35px; background: #0f172a; border-radius: 50%;
+        width: 35px; height: 35px; background: rgba(0, 0, 0, 0.4); border-radius: 50%;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
     }
-    .health-value { position: relative; z-index: 2; }
+    .health-value { position: relative; z-index: 2; color: #fff; }
 </style>
 @endpush
 

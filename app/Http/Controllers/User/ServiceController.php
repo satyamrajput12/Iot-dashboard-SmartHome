@@ -3,42 +3,46 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\ServiceRequest;
+use Illuminate\Http\Request;
 use Razorpay\Api\Api;
 use Illuminate\Support\Facades\Log;
 
-class BillingController extends Controller
+class ServiceController extends Controller
 {
     public function index()
     {
-        // Simulated data for Billing Dashboard
-        $currentPlan = 'Pro';
-        $monthlyCost = 799;
-        $devicesUsed = auth()->user()->devices()->count();
-        $deviceLimit = 50;
-        
-        $invoices = [
-            (object)['id' => 'INV-2024-001', 'date' => '2024-05-01', 'amount' => 799, 'status' => 'Paid'],
-            (object)['id' => 'INV-2024-002', 'date' => '2024-04-01', 'amount' => 799, 'status' => 'Paid'],
-            (object)['id' => 'INV-2024-003', 'date' => '2024-03-01', 'amount' => 799, 'status' => 'Paid'],
-        ];
-
-        return view('user.billing.index', compact('currentPlan', 'monthlyCost', 'devicesUsed', 'deviceLimit', 'invoices'));
+        // Get user's past service requests
+        $requests = auth()->user()->serviceRequests()->orderBy('created_at', 'desc')->get();
+        return view('user.services.index', compact('requests'));
     }
 
-    public function purchase(Request $request)
+    public function book(Request $request)
     {
         $request->validate([
-            'plan' => 'required|in:Pro,Enterprise'
+            'address_line_1' => 'required|string|max:255',
+            'address_line_2' => 'nullable|string|max:255',
+            'city'           => 'required|string|max:100',
+            'state'          => 'required|string|max:100',
+            'pincode'        => 'required|string|max:20'
         ]);
 
-        $amount = $request->plan === 'Pro' ? 799 : 2499;
+        $amount = 2.00; // Rs 2
+
+        $fullAddress = sprintf(
+            "%s, %s, %s, %s - %s",
+            $request->address_line_1,
+            $request->address_line_2 ?? '',
+            $request->city,
+            $request->state,
+            $request->pincode
+        );
+        $fullAddress = str_replace(', ,', ',', $fullAddress); // Cleanup if line 2 is empty
 
         $serviceRequest = ServiceRequest::create([
             'user_id' => auth()->id(),
-            'service_name' => $request->plan . ' Plan Upgrade',
-            'address' => 'Digital Subscription',
+            'service_name' => 'Tech Team Booking',
+            'address' => $fullAddress,
             'amount' => $amount,
             'status' => 'pending',
             'payment_status' => 'pending'
@@ -63,7 +67,7 @@ class BillingController extends Controller
                 'key' => env('RAZORPAY_KEY')
             ]);
         } catch (\Exception $e) {
-            Log::error('Razorpay Error: ' . $e->getMessage());
+            \Log::error('Razorpay Error: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'Razorpay Error: ' . $e->getMessage()
@@ -95,9 +99,28 @@ class BillingController extends Controller
                 'razorpay_payment_id' => $request->razorpay_payment_id
             ]);
 
-            return redirect()->route('user.billing.index')->with('success', 'Payment successful! Upgrade request sent to admin for approval.');
+            return redirect()->route('user.services.index')->with('success', 'Payment successful! Tech Team booked. Waiting for admin approval.');
         } else {
-            return redirect()->route('user.billing.index')->with('error', 'Payment verification failed.');
+            return redirect()->route('user.services.index')->with('error', 'Payment verification failed.');
         }
+    }
+
+    public function contactUs(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|max:255',
+            'message' => 'required|string|max:1000'
+        ]);
+
+        ServiceRequest::create([
+            'user_id' => auth()->id() ?? 1,
+            'service_name' => 'Contact Inquiry',
+            'address' => 'Email: ' . $request->email . "\nMessage: " . $request->message,
+            'amount' => 0.00,
+            'status' => 'pending',
+            'payment_status' => 'paid'
+        ]);
+
+        return redirect()->back()->with('success', 'Your message has been sent to the admin successfully!');
     }
 }

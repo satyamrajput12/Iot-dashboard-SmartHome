@@ -19,9 +19,9 @@ class UserDashboardController extends Controller
         // 1. Devices (Grouped by type for the new UI widgets)
         $allDevices = Device::where('user_id', $user->id)->get();
         
-        $thermostats = $allDevices->where('type', 'thermostat');
+        $thermostats = $allDevices->whereIn('type', ['thermostat', 'ac']);
         $lights = $allDevices->where('type', 'light');
-        $cameras = $allDevices->where('type', 'camera');
+        $cameras = $allDevices->whereIn('type', ['camera', 'refrigerator', 'tv', 'purifier', 'speaker', 'ac']);
         
         // Count Active Devices
         $activeDevicesCount = $allDevices->where('status', 'on')->count();
@@ -46,11 +46,20 @@ class UserDashboardController extends Controller
             $energyChartData[$usage->hour_recorded] = $usage->kilowatt_hours;
         }
 
+        // If no data, populate with realistic dummy data for demonstration
+        if ($energyData->isEmpty()) {
+            $currentHour = Carbon::now()->hour;
+            for ($i = 0; $i <= $currentHour; $i++) {
+                $base = ($i >= 18 && $i <= 22) ? 2.5 : (($i >= 7 && $i <= 10) ? 1.5 : 0.5);
+                $energyChartData[$i] = $base + (rand(0, 100) / 100);
+            }
+        }
+
         $dailyTotalEnergy = array_sum($energyChartData);
         $currentLoad = count($energyData) > 0 ? $energyData->last()->kilowatt_hours : 0;
         
-        // Estimated Cost (Say $0.24 per kWh)
-        $estimatedCost = $dailyTotalEnergy * 0.24;
+        // Estimated Cost (Say ₹8 per kWh)
+        $estimatedCost = $dailyTotalEnergy * 8;
 
         // Ensure we pass everything to the view
         return view('user.dashboard', compact(

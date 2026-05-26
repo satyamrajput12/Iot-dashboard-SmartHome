@@ -14,7 +14,7 @@
     .flip-card {
         background-color: transparent;
         width: 100%;
-        height: 240px;
+        height: 290px;
         perspective: 1000px;
     }
     
@@ -27,7 +27,7 @@
         transform-style: preserve-3d;
     }
     
-    .flip-card:hover .flip-card-inner {
+    .flip-card.flipped .flip-card-inner {
         transform: rotateY(180deg);
     }
     
@@ -37,19 +37,22 @@
         height: 100%;
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
-        border-radius: 20px;
-        background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
+        border-radius: 40px;
+        background: var(--glass-bg);
         backdrop-filter: var(--glass-blur);
-        border: 1px solid var(--glass-border);
-        padding: 1.5rem;
+        -webkit-backdrop-filter: var(--glass-blur);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        border: 1px solid rgba(255,255,255,0.15);
+        padding: 2rem;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        color: #ffffff;
     }
     
     .flip-card-back {
         transform: rotateY(180deg);
-        background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.8));
+        background: rgba(255, 255, 255, 0.08);
         align-items: center;
         justify-content: center;
     }
@@ -62,17 +65,34 @@
         margin: 0 auto;
         border-radius: 50%;
         display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2rem;
-        background: rgba(255,255,255,0.05);
+        background: rgba(255,255,255,0.15);
+        color: #ffffff;
+        box-shadow: inset 0 0 15px rgba(255,255,255,0.05);
         transition: all 0.3s;
     }
     
+    .device-main-img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 15px;
+        background: #ffffff;
+        padding: 5px;
+        margin: 0 auto;
+        display: block;
+        transition: all 0.3s;
+    }
+    
+    .device-is-on .device-main-img {
+        box-shadow: 0 0 25px rgba(212, 179, 255, 0.6);
+        border: 2px solid #d4b3ff;
+        transform: scale(1.05);
+    }
+    
     .device-is-on .device-icon-wrapper {
-        background: rgba(16, 185, 129, 0.15);
-        color: #34d399;
-        box-shadow: 0 0 20px rgba(16, 185, 129, 0.4), inset 0 0 10px rgba(16, 185, 129, 0.2);
+        background: rgba(212, 179, 255, 0.15);
+        color: #d4b3ff;
+        box-shadow: 0 0 20px rgba(212, 179, 255, 0.4), inset 0 0 10px rgba(212, 179, 255, 0.2);
     }
     
     .device-is-on .device-icon-wrapper::after {
@@ -80,7 +100,7 @@
         position: absolute;
         top: -4px; left: -4px; right: -4px; bottom: -4px;
         border-radius: 50%;
-        border: 2px solid rgba(16, 185, 129, 0.5);
+        border: 2px solid rgba(212, 179, 255, 0.5);
         animation: pulse-ring 2s infinite;
     }
 
@@ -98,7 +118,7 @@
     .device-is-on .waveform { opacity: 1; }
     .wave-bar {
         width: 4px;
-        background: #34d399;
+        background: #d4b3ff;
         border-radius: 2px;
         animation: wave 1s infinite ease-in-out;
     }
@@ -116,8 +136,8 @@
     .status-bars {
         display: flex; gap: 2px;
     }
-    .status-bar { width: 4px; height: 12px; background: rgba(255,255,255,0.2); border-radius: 2px; }
-    .status-bar.active { background: #3b82f6; }
+    .status-bar { width: 4px; height: 12px; background: rgba(255,255,255,0.3); border-radius: 2px; }
+    .status-bar.active { background: #d4b3ff; } /* Lilac for active bars */
 </style>
 @endpush
 
@@ -187,7 +207,7 @@
 @else
     <div class="device-grid">
         @foreach($devices as $device)
-            <div class="flip-card">
+            <div class="flip-card" id="flip-card-{{ $device->id }}">
                 <div class="flip-card-inner">
                     <!-- Front -->
                     <div class="flip-card-front {{ $device->isOn() ? 'device-is-on' : '' }}" id="device-card-{{ $device->id }}">
@@ -195,24 +215,41 @@
                             <span class="badge bg-{{ $device->getApprovalBadgeClass() }} bg-opacity-10 text-{{ $device->getApprovalBadgeClass() }}" style="font-size:0.65rem;">
                                 {{ ucfirst($device->approval_status) }}
                             </span>
-                            <div class="status-bars" title="Signal Strength">
-                                <div class="status-bar active"></div>
-                                <div class="status-bar active"></div>
-                                <div class="status-bar active"></div>
-                                <div class="status-bar"></div>
+                            <div class="d-flex gap-2">
+                                <div class="status-bars mt-1" title="Signal Strength">
+                                    <div class="status-bar active"></div>
+                                    <div class="status-bar active"></div>
+                                    <div class="status-bar active"></div>
+                                    <div class="status-bar"></div>
+                                </div>
+                                <button type="button" class="btn btn-link text-white p-0" onclick="flipCard({{ $device->id }})" title="Device Info">
+                                    <i class="bi bi-info-circle"></i>
+                                </button>
                             </div>
                         </div>
                         
                         <div>
-                            <div class="device-icon-wrapper">
-                                @if($device->type == 'thermostat') <i class="bi bi-thermometer-half"></i>
-                                @elseif($device->type == 'light') <i class="bi bi-lightbulb"></i>
-                                @elseif($device->type == 'camera') <i class="bi bi-camera-video"></i>
-                                @else <i class="bi bi-bell"></i> @endif
+                            <div class="text-center w-100 mt-2">
+                                @php
+                                    $defaultImages = ['light', 'thermostat', 'camera', 'air_purifier', 'ac', 'refrigerator', 'tv', 'purifier', 'speaker'];
+                                    $hasDefaultImage = in_array($device->type, $defaultImages);
+                                @endphp
+                                
+                                @if($device->image)
+                                    <img src="{{ asset('storage/' . $device->image) }}" alt="{{ $device->name }}" class="device-main-img">
+                                @elseif($device->stream_url)
+                                    <img src="{{ $device->stream_url }}" alt="{{ $device->name }}" class="device-main-img" style="padding: 0;">
+                                @elseif($hasDefaultImage)
+                                    <img src="{{ asset('images/devices/' . $device->type . '.png') }}" alt="{{ $device->name }}" class="device-main-img">
+                                @else
+                                    <div class="device-icon-wrapper">
+                                        <i class="bi bi-bell"></i>
+                                    </div>
+                                @endif
                             </div>
                             
-                            <div class="mt-3 fw-bold" style="font-family:'Poppins', sans-serif;">{{ $device->name }}</div>
-                            <div style="font-size:0.8rem; color:var(--text-muted);"><i class="bi bi-geo-alt me-1"></i>{{ $device->location }}</div>
+                            <div class="mt-3 font-dot" style="color: #ffffff; font-size: 1.25rem;">{{ $device->name }}</div>
+                            <div style="font-size:0.8rem; color:rgba(255,255,255,0.8);"><i class="bi bi-geo-alt me-1"></i>{{ $device->location }}</div>
                             
                             <div class="waveform">
                                 <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
@@ -227,18 +264,24 @@
                                     <span class="toggle-slider"></span>
                                 </label>
                             @else
-                                <span class="text-muted" style="font-size:0.8rem">Pending Approval</span>
+                                <span style="font-size:0.85rem; color: rgba(255,255,255,0.7) !important; font-weight: 500;">Pending Approval</span>
                             @endif
                         </div>
                     </div>
                     
                     <!-- Back -->
-                    <div class="flip-card-back">
-                        <div class="text-center w-100">
-                            <div class="mb-3" style="font-family:'Poppins', sans-serif; font-weight:600;">{{ $device->name }}</div>
-                            <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom: 5px;">ID: {{ $device->device_id }}</div>
-                            <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom: 15px;">Type: {{ ucfirst($device->type) }}</div>
-                            <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom: 15px;">
+                    <div class="flip-card-back position-relative">
+                        <button type="button" class="btn btn-link text-white p-0 position-absolute" style="top: 15px; right: 20px;" onclick="flipCard({{ $device->id }})" title="Close Info">
+                            <i class="bi bi-x-circle fs-5"></i>
+                        </button>
+                        <div class="text-center w-100 mt-2">
+                            @if(isset($device->image) && $device->image)
+                                <img src="{{ asset('storage/' . $device->image) }}" alt="{{ $device->name }}" class="rounded-circle mb-3 shadow" style="width: 70px; height: 70px; object-fit: cover; border: 3px solid rgba(255,255,255,0.3);">
+                            @endif
+                            <div class="mb-2 font-dot" style="color: #ffffff; font-size: 1.25rem;">{{ $device->name }}</div>
+                            <div style="font-size:0.85rem; color:rgba(255,255,255,0.8); margin-bottom: 5px;">ID: <span style="font-family: monospace;">{{ $device->device_id }}</span></div>
+                            <div style="font-size:0.85rem; color:rgba(255,255,255,0.8); margin-bottom: 5px;">Type: {{ ucfirst($device->type) }}</div>
+                            <div style="font-size:0.85rem; color:rgba(255,255,255,0.8); margin-bottom: 20px;">
                                 Last seen: {{ $device->last_seen ? $device->last_seen->diffForHumans() : 'Never' }}
                             </div>
                             
@@ -274,6 +317,10 @@
 @push('scripts')
 <script>
 const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+function flipCard(id) {
+    document.getElementById('flip-card-' + id).classList.toggle('flipped');
+}
 function toggleDevice(deviceId, checkbox) {
     fetch(`/dashboard/devices/${deviceId}/toggle`, {
         method: 'POST',

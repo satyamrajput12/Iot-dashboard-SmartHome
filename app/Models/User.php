@@ -94,6 +94,16 @@ class User extends Authenticatable
         return $this->hasMany(DeviceLog::class);
     }
 
+    public function energyLogs()
+    {
+        return $this->hasMany(EnergyLog::class);
+    }
+
+    public function serviceRequests()
+    {
+        return $this->hasMany(ServiceRequest::class);
+    }
+
     // =============================================
     // SCOPES
     // =============================================

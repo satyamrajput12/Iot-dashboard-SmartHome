@@ -6,30 +6,26 @@
 <style>
     /* Widget Card Base */
     .widget-card {
-        background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
-        backdrop-filter: var(--glass-blur);
-        border-radius: 24px;
-        border: 1px solid var(--glass-border);
-        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 32px;
+        border: 1px solid rgba(255,255,255,0.08);
+        padding: 1.8rem;
         height: 100%;
-        transition: all 0.3s ease;
+        transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         position: relative;
         overflow: hidden;
-    }
-    .widget-card {
-        transform-style: preserve-3d;
-        perspective: 1000px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        backdrop-filter: blur(50px);
+        -webkit-backdrop-filter: blur(50px);
     }
     .widget-card:hover {
-        border-color: rgba(255, 255, 255, 0.2);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(139, 92, 246, 0.2);
-        transform: translateY(-8px) rotateX(2deg) rotateY(-2deg);
+        transform: translateY(-4px);
     }
     
     /* Skeleton Shimmer Loading */
     .skeleton {
-        background: rgba(255, 255, 255, 0.05);
-        background-image: linear-gradient(90deg, rgba(255,255,255,0) 0, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%);
+        background: rgba(0, 0, 0, 0.05);
+        background-image: linear-gradient(90deg, rgba(0,0,0,0) 0, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0) 100%);
         background-size: 200% 100%;
         animation: shimmer 1.5s infinite;
         border-radius: 8px;
@@ -40,104 +36,167 @@
     }
     
     .widget-title {
-        font-family: 'Poppins', sans-serif;
-        font-weight: 600;
-        font-size: 1.1rem;
-        color: #fff;
-        margin-bottom: 1.2rem;
+        font-family: 'DotGothic16', sans-serif;
+        font-size: 1.25rem;
+        color: #ffffff;
+        margin-bottom: 1.5rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        letter-spacing: 2px;
+        text-transform: uppercase;
     }
 
-    /* Range Slider */
+    /* Range Slider (iOS Style Thick Slider) */
     .custom-range {
         -webkit-appearance: none;
         width: 100%;
-        height: 8px;
-        border-radius: 5px;
+        height: 44px;
+        border-radius: 22px;
         background: rgba(255,255,255,0.1);
         outline: none;
         margin: 10px 0;
+        border: 1px solid rgba(255,255,255,0.05);
+        overflow: hidden; /* For fill effect */
     }
     .custom-range::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: 20px;
-        height: 20px;
+        width: 44px;
+        height: 44px;
         border-radius: 50%;
-        background: #fff;
+        background: #ffffff;
         cursor: pointer;
-        box-shadow: 0 0 10px rgba(255,255,255,0.5);
+        box-shadow: -400px 0 0 380px #ffffff, 0 2px 10px rgba(0,0,0,0.2);
     }
 
-    /* Thermostat Dial Simulation */
+    /* Thermostat Dial Simulation (Warm Cinematic) */
     .thermostat-dial {
-        width: 180px;
-        height: 180px;
+        width: 200px;
+        height: 200px;
         border-radius: 50%;
-        background: conic-gradient(from -90deg, var(--primary), var(--secondary) 50%, rgba(255,255,255,0.05) 50%);
+        background: conic-gradient(from -90deg, #ffb5a7, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.02) 50%);
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
         margin: 0 auto;
-        box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        border: 1px solid rgba(255,255,255,0.1);
     }
     .thermostat-inner {
-        width: 160px;
-        height: 160px;
+        width: 176px;
+        height: 176px;
         border-radius: 50%;
-        background: #0f172a;
+        background: rgba(30, 25, 25, 0.6);
+        backdrop-filter: blur(20px);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         z-index: 2;
+        box-shadow: inset 0 4px 15px rgba(0,0,0,0.2);
+        border: 1px solid rgba(255,255,255,0.1);
     }
 
     /* Camera Feed */
     .camera-feed {
         position: relative;
-        border-radius: 16px;
+        border-radius: 24px;
         overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.2);
         margin-bottom: 1rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
     .camera-feed img {
         width: 100%;
-        height: 160px;
+        height: 180px;
         object-fit: cover;
     }
     .camera-overlay {
         position: absolute;
         bottom: 0; left: 0; right: 0;
-        padding: 0.5rem 1rem;
+        padding: 1rem 1.5rem;
         background: linear-gradient(0deg, rgba(0,0,0,0.8), transparent);
         color: #fff;
-        font-size: 0.85rem;
+        font-size: 0.95rem;
         display: flex;
         justify-content: space-between;
     }
     .rec-indicator {
-        width: 8px; height: 8px; border-radius: 50%; background: #ef4444;
-        display: inline-block; margin-right: 5px;
+        width: 10px; height: 10px; border-radius: 50%; background: #ff4757;
+        display: inline-block; margin-right: 8px;
         animation: blink 1.5s infinite;
+        box-shadow: 0 0 10px #ff4757;
     }
     @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
 
-    /* Control Buttons */
+    /* Control Buttons (Pill shaped translucent) */
     .control-btn {
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.1);
-        color: #fff;
-        padding: 0.5rem 1rem;
-        border-radius: 12px;
-        transition: all 0.2s;
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.2);
+        color: #ffffff;
+        padding: 0.8rem 1.5rem;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        font-weight: 500;
+        font-family: 'Manrope', sans-serif;
     }
     .control-btn.active {
-        background: var(--primary);
-        border-color: var(--primary);
+        background: rgba(255, 255, 255, 0.8);
+        color: #000000;
+        box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+        transform: translateY(-2px);
+    }
+    .control-btn:hover:not(.active) {
+        background: rgba(255,255,255,0.2);
+    }
+    
+    /* Action Pill (Bottom floating) */
+    .action-pill-container {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1050;
+    }
+    .action-pill {
+        background: linear-gradient(135deg, #1e1e1e, #111111);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 40px;
+        padding: 0.6rem 1.5rem 0.6rem 0.6rem;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        color: rgba(255,255,255,0.8);
+        font-family: 'Manrope', sans-serif;
+        cursor: pointer;
+        transition: transform 0.3s;
+    }
+    .action-pill:hover { transform: translateX(-50%) scale(1.02); }
+    .action-pill-icon {
+        width: 45px; height: 45px;
+        border-radius: 50%;
+        background: #ffffff;
+        color: #000000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
+        backdrop-filter: blur(10px);
+    }
+    .control-btn.active {
+        background: rgba(255,255,255,0.2);
+        border-color: rgba(255,255,255,0.4);
+        color: #fff;
+        box-shadow: 0 5px 15px rgba(255,255,255,0.1);
+        transform: translateY(-2px);
+    }
+    .control-btn:hover {
+        background: rgba(255,255,255,0.15);
     }
 </style>
 @endpush
@@ -162,8 +221,8 @@
                 <i class="bi bi-lightning-charge-fill"></i>
             </div>
             <div>
-                <div style="color: var(--text-muted); font-size: 0.85rem; font-weight: 500;">Today's Energy</div>
-                <div style="font-size: 1.5rem; font-weight: 700; color: #fff;">{{ number_format($dailyTotalEnergy, 1) }} <span style="font-size:0.9rem; color:var(--text-muted);">kWh</span></div>
+                <div style="color: var(--text-muted); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Today's Energy</div>
+                <div style="font-size: 1.5rem; font-weight: 800; color: var(--text-main);">{{ number_format($dailyTotalEnergy, 1) }} <span style="font-size:0.9rem; color:var(--text-muted); font-weight: 600;">kWh</span></div>
             </div>
         </div>
     </div>
@@ -175,8 +234,8 @@
                 <i class="bi bi-hdd-network-fill"></i>
             </div>
             <div>
-                <div style="color: var(--text-muted); font-size: 0.85rem; font-weight: 500;">Active Devices</div>
-                <div style="font-size: 1.5rem; font-weight: 700; color: #fff;">{{ $activeDevicesCount }} <span style="font-size:0.9rem; color:var(--text-muted);">/ {{ $allDevices->count() }}</span></div>
+                <div style="color: var(--text-muted); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Active Devices</div>
+                <div style="font-size: 1.5rem; font-weight: 800; color: var(--text-main);">{{ $activeDevicesCount }} <span style="font-size:0.9rem; color:var(--text-muted); font-weight: 600;">/ {{ $allDevices->count() }}</span></div>
             </div>
         </div>
     </div>
@@ -185,11 +244,11 @@
     <div class="col-md-4">
         <div class="widget-card d-flex align-items-center">
             <div style="width: 50px; height: 50px; border-radius: 14px; background: rgba(245, 158, 11, 0.15); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #fbbf24; margin-right: 1rem;">
-                <i class="bi bi-currency-dollar"></i>
+                <i class="bi bi-currency-rupee"></i>
             </div>
             <div>
-                <div style="color: var(--text-muted); font-size: 0.85rem; font-weight: 500;">Est. Cost Today</div>
-                <div style="font-size: 1.5rem; font-weight: 700; color: #fff;">${{ number_format($estimatedCost, 2) }}</div>
+                <div style="color: var(--text-muted); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Est. Cost Today</div>
+                <div style="font-size: 1.5rem; font-weight: 800; color: var(--text-main);">₹{{ number_format($estimatedCost, 2) }}</div>
             </div>
         </div>
     </div>
@@ -242,8 +301,34 @@
                         <i class="bi bi-arrow-repeat mb-1 d-block"></i> Auto
                     </button>
                 </div>
+
+                <!-- Extra Controls to fill space -->
+                <div class="mt-4 pt-3" style="border-top: 1px solid rgba(255,255,255,0.1);">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-fan" style="color: var(--text-muted);"></i>
+                            <span style="color: var(--text-muted); font-size: 0.9rem;">Fan Speed</span>
+                        </div>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button type="button" class="btn btn-outline-light active" style="font-size: 0.75rem; border-color: rgba(255,255,255,0.2);">Low</button>
+                            <button type="button" class="btn btn-outline-light" style="font-size: 0.75rem; border-color: rgba(255,255,255,0.2);">Med</button>
+                            <button type="button" class="btn btn-outline-light" style="font-size: 0.75rem; border-color: rgba(255,255,255,0.2);">High</button>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-power" style="color: var(--text-muted);"></i>
+                            <span style="color: var(--text-muted); font-size: 0.9rem;">System Power</span>
+                        </div>
+                        <label class="toggle-switch mb-0">
+                            <input type="checkbox" {{ $thermostat->isOn() ? 'checked' : '' }} onchange="toggleDevice({{ $thermostat->id }}, this)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
             @else
-                <div class="text-center py-4 text-muted">No thermostat detected.</div>
+                <div class="text-center py-4 text-muted">No climate control device detected.</div>
             @endif
         </div>
     </div>
@@ -252,18 +337,24 @@
     <div class="col-lg-8">
         <div class="widget-card">
             <div class="widget-title">
-                Security Cameras
+                Smart Cameras & Appliances
                 <a href="#" style="font-size: 0.8rem; color: var(--primary); text-decoration: none;">View All</a>
             </div>
             
             <div class="row g-3">
                 @if($cameras->count() > 0)
-                    @foreach($cameras->take(2) as $camera)
+                    @foreach($cameras->take(6) as $camera)
                         <div class="col-md-6">
-                            <div class="camera-feed">
-                                <img src="{{ $camera->stream_url ?? 'https://images.unsplash.com/photo-1558002038-1055907df827?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60' }}" alt="Camera Feed">
+                            <div class="camera-feed" id="camera-feed-{{ $camera->id }}" style="transition: all 0.3s; {{ $camera->isOn() ? '' : 'opacity: 0.5; filter: grayscale(100%);' }}">
+                                <img src="{{ $camera->stream_url ?? asset('images/devices/' . $camera->type . '.png') }}" alt="{{ $camera->name }}" style="object-fit: contain; background: white; padding: 10px;">
                                 <div class="camera-overlay">
-                                    <span><span class="rec-indicator"></span> LIVE</span>
+                                    <span id="cam-status-{{ $camera->id }}">
+                                        @if($camera->isOn())
+                                            <span class="rec-indicator"></span> LIVE
+                                        @else
+                                            <i class="bi bi-camera-video-off text-muted"></i> OFFLINE
+                                        @endif
+                                    </span>
                                     <span>{{ $camera->location }}</span>
                                 </div>
                             </div>
@@ -292,10 +383,10 @@
             
             <div class="d-flex flex-column gap-3">
                 @forelse($lights as $light)
-                    <div class="p-3 rounded-4" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);">
+                    <div class="p-3 rounded-4" style="background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.05);">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <div class="d-flex align-items-center gap-3">
-                                <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(250, 204, 21, 0.15); display: flex; align-items: center; justify-content: center; color: #facc15;">
+                                <div id="light-icon-{{ $light->id }}" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; transition: all 0.3s; {{ $light->isOn() ? 'background: rgba(250, 204, 21, 0.15); color: #facc15;' : 'background: rgba(255,255,255,0.05); color: #888888;' }}">
                                     <i class="bi bi-lightbulb-fill"></i>
                                 </div>
                                 <div>
@@ -341,6 +432,9 @@
 </div>
 
 </div>
+
+
+
 @endsection
 
 @push('scripts')
@@ -360,6 +454,33 @@ function toggleDevice(deviceId, checkbox) {
             showToast(data.message, 'error');
         } else {
             showToast(data.message, 'success');
+            
+            // Visual update for cameras
+            const camFeed = document.getElementById('camera-feed-' + deviceId);
+            const camStatus = document.getElementById('cam-status-' + deviceId);
+            if (camFeed) {
+                if (checkbox.checked) {
+                    camFeed.style.opacity = '1';
+                    camFeed.style.filter = 'grayscale(0%)';
+                    if (camStatus) camStatus.innerHTML = '<span class="rec-indicator"></span> LIVE';
+                } else {
+                    camFeed.style.opacity = '0.5';
+                    camFeed.style.filter = 'grayscale(100%)';
+                    if (camStatus) camStatus.innerHTML = '<i class="bi bi-camera-video-off text-muted"></i> OFFLINE';
+                }
+            }
+            
+            // Visual update for lights
+            const lightIcon = document.getElementById('light-icon-' + deviceId);
+            if (lightIcon) {
+                if (checkbox.checked) {
+                    lightIcon.style.background = 'rgba(250, 204, 21, 0.15)';
+                    lightIcon.style.color = '#facc15';
+                } else {
+                    lightIcon.style.background = 'rgba(255,255,255,0.05)';
+                    lightIcon.style.color = '#888888';
+                }
+            }
         }
     }).catch(() => { checkbox.checked = !checkbox.checked; showToast('Error toggling device.', 'error'); });
 }

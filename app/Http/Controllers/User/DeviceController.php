@@ -55,7 +55,7 @@ class DeviceController extends Controller
     {
         $request->validate([
             'name'        => 'required|string|max:255',
-            'type'        => 'required|in:thermostat,light,alarm,camera',
+            'type'        => 'required|in:thermostat,light,alarm,camera,smart_plug,door_lock,motion_sensor,smoke_detector,water_sensor,blinds,speaker,vacuum,air_purifier,tv,garage_door,fridge,oven,washer,dryer,kettle,fan,mirror,pet_feeder,plant_monitor',
             'location'    => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
             'temperature' => 'nullable|numeric|min:-50|max:100',
@@ -107,7 +107,7 @@ class DeviceController extends Controller
 
         $request->validate([
             'name'        => 'required|string|max:255',
-            'type'        => 'required|in:thermostat,light,alarm,camera',
+            'type'        => 'required|in:thermostat,light,alarm,camera,smart_plug,door_lock,motion_sensor,smoke_detector,water_sensor,blinds,speaker,vacuum,air_purifier,tv,garage_door,fridge,oven,washer,dryer,kettle,fan,mirror,pet_feeder,plant_monitor',
             'location'    => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
             'temperature' => 'nullable|numeric|min:-50|max:100',

@@ -31,10 +31,30 @@
                         <label class="form-label fw-500">Device Type</label>
                         <select name="type" class="form-select @error('type') is-invalid @enderror"
                                 id="typeSelect" onchange="toggleTempField()">
-                            <option value="thermostat" {{ old('type', $device->type)=='thermostat'?'selected':'' }}>🌡️ Thermostat</option>
-                            <option value="light"      {{ old('type', $device->type)=='light'?'selected':'' }}>💡 Light</option>
-                            <option value="alarm"      {{ old('type', $device->type)=='alarm'?'selected':'' }}>🔔 Alarm</option>
-                            <option value="camera"     {{ old('type', $device->type)=='camera'?'selected':'' }}>📹 Camera</option>
+                                    <option value="thermostat" {{ old('type', $device->type) == 'thermostat' ? 'selected' : '' }}>🌡️ Thermostat</option>
+                                    <option value="light" {{ old('type', $device->type) == 'light' ? 'selected' : '' }}>💡 Light</option>
+                                    <option value="alarm" {{ old('type', $device->type) == 'alarm' ? 'selected' : '' }}>🔔 Alarm</option>
+                                    <option value="camera" {{ old('type', $device->type) == 'camera' ? 'selected' : '' }}>📹 Camera</option>
+                                    <option value="smart_plug" {{ old('type', $device->type) == 'smart_plug' ? 'selected' : '' }}>🔌 Smart Plug</option>
+                                    <option value="door_lock" {{ old('type', $device->type) == 'door_lock' ? 'selected' : '' }}>🔒 Door Lock</option>
+                                    <option value="motion_sensor" {{ old('type', $device->type) == 'motion_sensor' ? 'selected' : '' }}>🚶 Motion Sensor</option>
+                                    <option value="smoke_detector" {{ old('type', $device->type) == 'smoke_detector' ? 'selected' : '' }}>💨 Smoke Detector</option>
+                                    <option value="water_sensor" {{ old('type', $device->type) == 'water_sensor' ? 'selected' : '' }}>💧 Water Leak Sensor</option>
+                                    <option value="blinds" {{ old('type', $device->type) == 'blinds' ? 'selected' : '' }}>🪟 Smart Blinds</option>
+                                    <option value="speaker" {{ old('type', $device->type) == 'speaker' ? 'selected' : '' }}>🔊 Smart Speaker</option>
+                                    <option value="vacuum" {{ old('type', $device->type) == 'vacuum' ? 'selected' : '' }}>🧹 Robot Vacuum</option>
+                                    <option value="air_purifier" {{ old('type', $device->type) == 'air_purifier' ? 'selected' : '' }}>🌬️ Air Purifier</option>
+                                    <option value="tv" {{ old('type', $device->type) == 'tv' ? 'selected' : '' }}>📺 Smart TV</option>
+                                    <option value="garage_door" {{ old('type', $device->type) == 'garage_door' ? 'selected' : '' }}>🚪 Garage Door</option>
+                                    <option value="fridge" {{ old('type', $device->type) == 'fridge' ? 'selected' : '' }}>🧊 Smart Fridge</option>
+                                    <option value="oven" {{ old('type', $device->type) == 'oven' ? 'selected' : '' }}>♨️ Smart Oven</option>
+                                    <option value="washer" {{ old('type', $device->type) == 'washer' ? 'selected' : '' }}>🧺 Smart Washer</option>
+                                    <option value="dryer" {{ old('type', $device->type) == 'dryer' ? 'selected' : '' }}>👕 Smart Dryer</option>
+                                    <option value="kettle" {{ old('type', $device->type) == 'kettle' ? 'selected' : '' }}>☕ Smart Kettle</option>
+                                    <option value="fan" {{ old('type', $device->type) == 'fan' ? 'selected' : '' }}>🌀 Smart Fan</option>
+                                    <option value="mirror" {{ old('type', $device->type) == 'mirror' ? 'selected' : '' }}>🪞 Smart Mirror</option>
+                                    <option value="pet_feeder" {{ old('type', $device->type) == 'pet_feeder' ? 'selected' : '' }}>🐕 Pet Feeder</option>
+                                    <option value="plant_monitor" {{ old('type', $device->type) == 'plant_monitor' ? 'selected' : '' }}>🌱 Plant Monitor</option>
                         </select>
                         @error('type') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>

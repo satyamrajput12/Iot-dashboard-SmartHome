@@ -250,4 +250,26 @@ class AdminController extends Controller
 
         return back()->with('success', "Simulated error generated for '{$device->name}'.");
     }
+
+    // =============================================
+    // SERVICE REQUESTS (TECH TEAM)
+    // =============================================
+
+    public function serviceRequests(Request $request)
+    {
+        $requests = \App\Models\ServiceRequest::with('user')->latest()->paginate(15);
+        return view('admin.services.index', compact('requests'));
+    }
+
+    public function approveServiceRequest(\App\Models\ServiceRequest $serviceRequest)
+    {
+        $serviceRequest->update(['status' => 'approved']);
+        return back()->with('success', 'Service request approved successfully.');
+    }
+
+    public function rejectServiceRequest(\App\Models\ServiceRequest $serviceRequest)
+    {
+        $serviceRequest->update(['status' => 'rejected']);
+        return back()->with('success', 'Service request rejected.');
+    }
 }

@@ -11,39 +11,43 @@
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Manrope:wght@200;300;400;500;600&display=swap" rel="stylesheet">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
     <style>
         :root {
-            --primary: #3b82f6;
-            --primary-dark: #2563eb;
-            --secondary: #8b5cf6;
-            --accent: #06b6d4;
-            --bg-dark: #0a0a0f;
-            --bg-glass: rgba(10, 10, 15, 0.7);
+            --primary: #9b8a82; /* Warm subtle tone */
+            --primary-dark: #6e5f58;
+            --secondary: #e6b8a2;
+            --accent: #ffb5a7;
+            --bg-dark: #000000;
+            --bg-glass: rgba(255, 230, 220, 0.05); /* warm tint */
             --sidebar-width: 280px;
             
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-blur: blur(16px);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --glass-bg: rgba(255, 255, 255, 0.1); 
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-blur: blur(40px);
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
         }
 
-        * { font-family: 'Outfit', sans-serif; }
-        h1, h2, h3, h4, h5, h6, .brand-text { font-family: 'Space Grotesk', sans-serif; }
+        * { font-family: 'Manrope', -apple-system, sans-serif; font-weight: 500; letter-spacing: 0.3px; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Manrope', sans-serif; font-weight: 700; }
+        b, strong { font-weight: 700; }
+        
+        .font-dot {
+            font-family: 'DotGothic16', sans-serif !important;
+            letter-spacing: 2px !important;
+            text-transform: uppercase;
+        }
 
         body { 
-            background-color: var(--bg-dark); 
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.12), transparent 30%),
-                radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.12), transparent 30%);
-            background-attachment: fixed;
+            background: #000000 url('/images/cinematic-bg.png') center/cover fixed no-repeat;
             color: var(--text-main);
             min-height: 100vh; 
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
@@ -70,7 +74,7 @@
         /* ── Sidebar ── */
         .sidebar {
             width: var(--sidebar-width);
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.4) 100%);
+            background: rgba(0,0,0,0.15);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             border-right: 1px solid var(--glass-border);
@@ -92,14 +96,14 @@
         }
         .sidebar-brand .brand-icon {
             width: 42px; height: 42px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
             display: flex; align-items: center; justify-content: center;
             font-size: 1.4rem;
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
         }
-        .brand-text-main { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.25rem; letter-spacing: 0.5px; }
+        .brand-text-main { font-family: 'DotGothic16', sans-serif; font-size: 1.5rem; letter-spacing: 2px; }
         .sidebar-nav { padding: 1rem 0; flex: 1; }
         .nav-section-label {
             padding: 0.5rem 1.5rem;
@@ -107,35 +111,34 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--accent);
+            color: var(--text-muted);
             margin-top: 1rem;
-            opacity: 0.8;
         }
         .sidebar-nav .nav-link {
-            color: var(--text-muted);
-            padding: 0.8rem 1.5rem;
+            color: rgba(255, 255, 255, 0.85);
+            padding: 0.75rem 1.5rem;
             display: flex;
             align-items: center;
             gap: 1rem;
             font-size: 0.95rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            transition: all 0.2s ease;
             position: relative;
-            border-left: 3px solid transparent;
+            border-radius: 12px;
+            margin: 0.2rem 1rem;
         }
         .sidebar-nav .nav-link:hover {
             color: #fff;
             background: rgba(255, 255, 255, 0.05);
-            transform: translateX(5px);
         }
         .sidebar-nav .nav-link.active {
             color: #fff;
-            background: linear-gradient(90deg, rgba(59, 130, 246, 0.15) 0%, transparent 100%);
-            border-left-color: var(--primary);
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            background: var(--primary);
+            border-radius: 12px;
+            font-weight: 700;
         }
-        .sidebar-nav .nav-link.active i { color: var(--primary); text-shadow: 0 0 15px var(--primary); }
-        .sidebar-nav .nav-link i { font-size: 1.2rem; width: 24px; text-align: center; transition: all 0.3s; }
+        .sidebar-nav .nav-link.active i { color: #fff; }
+        .sidebar-nav .nav-link i { font-size: 1.2rem; width: 24px; text-align: center; transition: all 0.3s; color: inherit; }
 
         /* ── Main content ── */
         .main-content {
@@ -149,7 +152,7 @@
 
         /* ── Topbar ── */
         .topbar {
-            background: rgba(11, 17, 32, 0.7);
+            background: rgba(0, 0, 0, 0.05);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             border-bottom: 1px solid var(--glass-border);
@@ -158,9 +161,8 @@
             align-items: center;
             justify-content: space-between;
             position: sticky; top: 0; z-index: 900;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
-        .topbar .page-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.4rem; color: #fff; margin: 0; letter-spacing: 0.5px; }
+        .topbar .page-title { font-family: 'DotGothic16', sans-serif; font-size: 1.6rem; color: #ffffff; margin: 0; letter-spacing: 2px; text-transform: uppercase; }
         
         .live-clock-badge {
             background: rgba(6, 182, 212, 0.1);
@@ -180,12 +182,14 @@
         .stat-card {
             background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
-            border-radius: 20px;
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: 40px;
             padding: 1.5rem;
             border: 1px solid var(--glass-border);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
         .stat-card::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 100%;
@@ -194,8 +198,8 @@
         }
         .stat-card:hover { 
             transform: translateY(-8px) scale(1.02); 
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary);
         }
         .stat-card:hover::before { opacity: 1; }
         .stat-card .icon-box {
@@ -213,18 +217,20 @@
             100% { transform: translateY(0px); }
         }
         
-        .stat-card .stat-value { font-size: 2.2rem; font-weight: 700; color: #fff; line-height: 1.2; position: relative; z-index: 2; font-family: 'Space Grotesk', sans-serif;}
-        .stat-card .stat-label { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; position: relative; z-index: 2; }
+        .stat-card .stat-value { font-size: 2.5rem; font-weight: 700; color: #ffffff; line-height: 1.2; position: relative; z-index: 2; font-family: 'Manrope', sans-serif;}
+        .stat-card .stat-label { font-size: 1rem; color: var(--text-muted); font-weight: 600; position: relative; z-index: 2; }
 
         /* ── Device Cards ── */
         .device-card {
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.5), rgba(15, 23, 42, 0.6));
+            background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
-            border-radius: 20px;
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: 40px;
             border: 1px solid var(--glass-border);
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
             overflow: hidden;
             position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
         .device-card:hover { 
             box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 15px rgba(59, 130, 246, 0.2); 
@@ -248,29 +254,31 @@
         .type-alarm       { background: rgba(220, 38, 38, 0.15); color: #f87171; border: 1px solid rgba(220, 38, 38, 0.3); }
 
         /* ── Toggle Switch (Futuristic) ── */
-        .toggle-switch { position: relative; width: 56px; height: 30px; display: inline-block; }
+        .toggle-switch { position: relative; width: 51px; height: 31px; display: inline-block; }
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
         .toggle-slider {
             position: absolute; cursor: pointer;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(255,255,255,0.1);
-            border-radius: 30px;
-            transition: .4s;
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.15);
+            border-radius: 31px;
+            transition: .3s;
+            border: 1px solid rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
         }
         .toggle-slider::before {
-            content: ''; position: absolute; width: 22px; height: 22px; left: 4px; bottom: 3px;
-            background: #94a3b8; border-radius: 50%; transition: .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            content: ''; position: absolute; width: 27px; height: 27px; left: 2px; bottom: 1px;
+            background: #ffffff; border-radius: 50%; transition: .3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         input:checked + .toggle-slider { 
-            background: rgba(59, 130, 246, 0.3); 
-            border-color: var(--primary);
-            box-shadow: inset 0 0 10px rgba(59, 130, 246, 0.5);
+            background: #34c759; 
+            border-color: #34c759;
+            box-shadow: none;
         }
         input:checked + .toggle-slider::before { 
-            transform: translateX(24px); 
+            transform: translateX(20px); 
             background: #fff;
-            box-shadow: 0 0 15px var(--primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         /* ── Status Badge ── */
@@ -278,30 +286,38 @@
         .status-off { background: rgba(255, 255, 255, 0.05); color: #94a3b8; border: 1px solid rgba(255, 255, 255, 0.1); font-size: .75rem; padding: .35rem .75rem; border-radius: 20px; font-weight: 600; letter-spacing: 0.5px; }
 
         /* ── Flash messages ── */
-        .alert { border-radius: 12px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); color: #fff; }
-        .alert-success { background: rgba(34, 197, 94, 0.2); }
-        .alert-danger { background: rgba(220, 38, 38, 0.2); }
-        .alert-info { background: rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.3); color: #fff; }
+        .alert { border-radius: 12px; backdrop-filter: blur(10px); border: 1px solid rgba(0,0,0,0.05); color: var(--text-main); }
+        .alert-success { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
+        .alert-danger { background: #fee2e2; color: #991b1b; border-color: #fecaca; }
+        .alert-info { background: #dbeafe; color: #1e40af; border-color: #bfdbfe; }
 
         /* ── Tables & Forms ── */
-        .table-card { background: var(--glass-bg); backdrop-filter: var(--glass-blur); border-radius: 20px; border: 1px solid var(--glass-border); overflow: hidden; }
-        .table-card .table { margin: 0; color: var(--text-main); }
-        .table-card .table th { background: rgba(255,255,255,0.02); font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); border-bottom: 1px solid var(--glass-border); }
-        .table-card .table td { vertical-align: middle; font-size: .9rem; border-color: rgba(255,255,255,0.05); background: transparent; color: var(--text-main); }
+        .table-card { background: var(--glass-bg); backdrop-filter: var(--glass-blur); border-radius: 40px; border: 1px solid var(--glass-border); box-shadow: 0 15px 35px rgba(0,0,0,0.1); overflow: hidden; padding: 1rem; }
+        .table-card .table { margin: 0; color: #ffffff; }
+        .table-card .table th { background: transparent; font-size: .8rem; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .table-card .table td { vertical-align: middle; font-size: .95rem; border-color: rgba(255,255,255,0.05); background: transparent; color: #ffffff; }
         
         .form-control, .form-select {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid var(--glass-border);
-            color: #fff;
-            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #ffffff;
+            border-radius: 14px;
+            padding: 0.75rem 1.25rem;
+            backdrop-filter: blur(10px);
         }
         .form-control:focus, .form-select:focus {
-            background: rgba(15, 23, 42, 0.8);
-            border-color: var(--primary);
-            color: #fff;
-            box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25);
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.4);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
         }
-        .form-control::placeholder { color: #64748b; }
+        .form-control::placeholder, .form-select::placeholder { color: rgba(255,255,255,0.8); font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        
+        /* Fix native select options being white on white */
+        select option {
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
         
         /* ── Modals ── */
         .modal-content {
@@ -316,12 +332,17 @@
         .btn-close { filter: invert(1) grayscale(100%) brightness(200%); }
 
         /* ── Buttons ── */
-        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); border: none; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); transition: all 0.3s; color: white;}
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4); color: white;}
-        .btn-success { background: linear-gradient(135deg, #10b981, #059669); border: none; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); transition: all 0.3s; color: white;}
-        .btn-success:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); color: white;}
-        .btn-light { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(5px); transition: all 0.3s; }
-        .btn-light:hover { background: rgba(255,255,255,0.2); color: #fff; border-color: rgba(255,255,255,0.2); }
+        .btn { border-radius: 30px; padding: 0.6rem 1.5rem; font-weight: 500; letter-spacing: 0.5px; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .btn-primary { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); color: #fff; }
+        .btn-primary:hover { transform: translateY(-3px); background: rgba(255,255,255,0.3); border-color: rgba(255,255,255,0.5); color: #fff; box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+        .btn-success { background: rgba(16, 185, 129, 0.3); border: 1px solid rgba(16, 185, 129, 0.5); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2); color: #fff;}
+        .btn-success:hover { transform: translateY(-3px); background: rgba(16, 185, 129, 0.5); border-color: rgba(16, 185, 129, 0.8); color: #fff; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);}
+        .btn-danger { background: rgba(220, 38, 38, 0.5); border: 1px solid rgba(220, 38, 38, 0.7); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(220, 38, 38, 0.2); color: #fff; }
+        .btn-danger:hover { transform: translateY(-3px); background: rgba(220, 38, 38, 0.7); border-color: rgba(220, 38, 38, 1); color: #fff; box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4); }
+        .btn-blue { background: rgba(59, 130, 246, 0.5); border: 1px solid rgba(59, 130, 246, 0.7); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); color: #fff; }
+        .btn-blue:hover { transform: translateY(-3px); background: rgba(59, 130, 246, 0.7); border-color: rgba(59, 130, 246, 1); color: #fff; box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4); }
+        .btn-light { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px); transition: all 0.3s; }
+        .btn-light:hover { background: rgba(255,255,255,0.25); color: #fff; border-color: rgba(255,255,255,0.4); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .btn-outline-warning { border-color: rgba(245, 158, 11, 0.5); color: #fbbf24; }
         .btn-outline-warning:hover { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border-color: rgba(245, 158, 11, 0.8); }
 
@@ -597,7 +618,7 @@
         .noti-item.unread { background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.2); }
         .noti-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.5); z-index: 1040; display: none; backdrop-filter: blur(5px); }
         .noti-overlay.open { display: block; }
-        .bell-btn { position: relative; background: transparent; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; transition: transform 0.3s; }
+        .bell-btn { position: relative; background: transparent; border: none; color: var(--text-main); font-size: 1.2rem; cursor: pointer; transition: transform 0.3s; }
         .bell-btn:hover { transform: scale(1.1); color: var(--primary); }
         .bell-badge { position: absolute; top: -5px; right: -5px; background: #ef4444; font-size: 0.65rem; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold; border: 2px solid var(--bg-dark); }
 
@@ -620,6 +641,128 @@
         .bottom-nav-item.active { color: var(--primary); }
         .bottom-nav-item.active i { text-shadow: 0 0 10px var(--primary); }
 
+        .hero-footer {
+            position: relative;
+            min-height: auto;
+            background: url('/images/footer-bg.png') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem 1rem;
+            color: #fff;
+            margin-top: auto;
+            overflow: hidden;
+        }
+        
+        .footer-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
+            z-index: 1;
+        }
+
+        .footer-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .footer-nav {
+            display: flex;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            transition: opacity 0.3s;
+        }
+        .footer-nav a:hover { opacity: 0.8; }
+        
+        .footer-socials {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: auto;
+            justify-content: center;
+        }
+        .footer-socials a {
+            color: #fff;
+            font-size: 1.2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            transition: transform 0.3s;
+        }
+        .footer-socials a:hover { transform: translateY(-3px); }
+        
+        .footer-brand-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 800;
+            color: #fff;
+            line-height: 1;
+            margin: auto 0;
+            text-align: center;
+            letter-spacing: -2px;
+            text-shadow: 
+                0 1px 0 #cccccc,
+                0 2px 0 #c9c9c9,
+                0 3px 0 #bbbbbb,
+                0 4px 0 #b9b9b9,
+                0 5px 0 #aaaaaa,
+                0 6px 1px rgba(0,0,0,.1),
+                0 0 5px rgba(0,0,0,.1),
+                0 1px 3px rgba(0,0,0,.3),
+                0 3px 5px rgba(0,0,0,.2),
+                0 5px 10px rgba(0,0,0,.25),
+                0 10px 10px rgba(0,0,0,.2),
+                0 20px 20px rgba(0,0,0,.15);
+        }
+        
+        .footer-disclaimer {
+            text-align: center;
+            max-width: 800px;
+            margin-top: auto;
+            font-family: 'Outfit', serif;
+        }
+        .footer-disclaimer p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        }
+        .footer-bottom-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+        .footer-bottom-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        }
+        .copyright {
+            font-size: 0.8rem !important;
+            color: rgba(255,255,255,0.7) !important;
+        }
+
     </style>
     @stack('styles')
 </head>
@@ -628,29 +771,32 @@
 <!-- ===================== SIDEBAR ===================== -->
 <aside class="sidebar" id="sidebar">
     <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('user.dashboard') }}" class="sidebar-brand">
-        <div class="brand-icon">🏠</div>
+        <div class="brand-icon" style="background: transparent; border: none; box-shadow: none; width: 64px; height: 64px; margin-right: 5px;">
+            <img src="https://img.icons8.com/3d-fluency/94/combo-chart.png" alt="Logo" style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));">
+        </div>
         <div>
-            <div class="brand-text-main">IoT Dashboard</div>
-            <div style="font-size:0.75rem;font-weight:400;color:var(--accent);">Smart Home Control</div>
+            <div class="brand-text-main">IOT DASHBOARD</div>
+            <div style="font-size:0.7rem;font-weight:800;color:rgba(255,255,255,0.9);text-transform:uppercase;letter-spacing:1.5px;margin-top:2px;">SMART HOME CONTROL</div>
         </div>
     </a>
 
     <nav class="sidebar-nav">
-        @if(auth()->user()->isAdmin())
-            <!-- ADMIN MENU -->
-            <div class="nav-section-label">Admin Panel</div>
+        @if(auth()->check() && auth()->user()->isAdmin())
+            <div class="nav-section-label">Admin Controls</div>
             <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                <i class="bi bi-speedometer2"></i> Dashboard
+                <i class="bi bi-speedometer2"></i> Overview
             </a>
             <a href="{{ route('admin.devices') }}" class="nav-link {{ request()->routeIs('admin.devices') ? 'active' : '' }}">
-                <i class="bi bi-cpu"></i> All Devices
+                <i class="bi bi-cpu"></i> Devices
             </a>
             <a href="{{ route('admin.users') }}" class="nav-link {{ request()->routeIs('admin.users') ? 'active' : '' }}">
                 <i class="bi bi-people"></i> Users
             </a>
-            <div class="nav-section-label">System</div>
             <a href="{{ route('admin.logs') }}" class="nav-link {{ request()->routeIs('admin.logs') ? 'active' : '' }}">
-                <i class="bi bi-journal-text"></i> Device Logs
+                <i class="bi bi-journal-text"></i> System Logs
+            </a>
+            <a href="{{ route('admin.services.index') }}" class="nav-link {{ request()->routeIs('admin.services.*') ? 'active' : '' }}">
+                <i class="bi bi-tools"></i> Service Requests
             </a>
         @else
             <!-- USER MENU -->
@@ -670,6 +816,11 @@
             </a>
             <a href="{{ route('user.billing.index') }}" class="nav-link {{ request()->routeIs('user.billing.*') ? 'active' : '' }}">
                 <i class="bi bi-credit-card"></i> Billing
+            </a>
+            
+            <div class="nav-section-label">Support</div>
+            <a href="{{ route('user.services.index') }}" class="nav-link {{ request()->routeIs('user.services.*') ? 'active' : '' }}">
+                <i class="bi bi-tools"></i> Services
             </a>
         @endif
     </nav>
@@ -692,7 +843,7 @@
             </div>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" style="background:none;border:none;color:#a5b4fc;cursor:pointer;padding:.25rem" title="Logout">
+                <button type="submit" style="background:none;border:none;color:#cbd5e1;cursor:pointer;padding:.25rem;transition:color 0.3s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#cbd5e1'" title="Logout">
                     <i class="bi bi-box-arrow-right" style="font-size:1.1rem"></i>
                 </button>
             </form>
@@ -766,6 +917,46 @@
     <div class="page-content">
         @yield('content')
     </div>
+
+    <!-- Global Footer -->
+    <footer class="hero-footer mt-5">
+        <div class="footer-overlay"></div>
+        <div class="footer-content" style="padding: 1rem 0;">
+            <div class="row w-100 align-items-center" style="max-width: 1200px; margin: 0 auto; z-index: 10; position: relative;">
+                
+                <!-- Left Side: Brand & Disclaimer -->
+                <div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
+                    <h1 class="footer-brand-text" style="font-size: clamp(2.5rem, 6vw, 4.5rem); text-align: left; margin-bottom: 1rem; line-height: 1;">iot dashboard</h1>
+                    <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); max-width: 400px; margin-bottom: 1rem;">
+                        Features and availability may vary by location. Devices must be compatible and meet network requirements. All connections are conducted via securely encrypted, regulated facilities.
+                    </p>
+                    <div class="d-flex gap-3 justify-content-center justify-content-lg-start mb-2" style="font-size: 0.85rem;">
+                        <a href="#" class="text-white text-decoration-none">Privacy Policy</a>
+                        <a href="#" class="text-white text-decoration-none">Terms & Conditions</a>
+                    </div>
+                    <p class="copyright m-0" style="font-size: 0.75rem; color: rgba(255,255,255,0.5);">&copy; {{ date('Y') }} IoT Dashboard. All rights reserved.</p>
+                </div>
+                
+                <!-- Right Side: Contact Form -->
+                <div class="col-lg-6 d-flex justify-content-center justify-content-lg-end">
+                    <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(20px); text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.2); max-width: 400px; width: 100%;">
+                        <h5 style="color: #fff; font-family: 'Space Grotesk', sans-serif; margin-bottom: 1rem; font-size: 1.1rem; letter-spacing: 0.5px;">Connect with us</h5>
+                        <form action="{{ route('user.contact.submit') }}" method="POST">
+                            @csrf
+                            <div class="mb-2">
+                                <input type="email" name="email" class="form-control form-control-sm" placeholder="Your Gmail ID" required style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 8px; padding: 0.5rem 0.75rem;">
+                            </div>
+                            <div class="mb-3">
+                                <textarea name="message" class="form-control form-control-sm" rows="2" placeholder="How can we help?" required style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 8px; padding: 0.5rem 0.75rem; resize: none;"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm w-100 rounded-pill py-2" style="font-weight: 600;">Send to Admin</button>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </footer>
 </div>
 
 <!-- ===================== CHATBOT WIDGET ===================== -->
