@@ -58,13 +58,13 @@
 <!-- Logs Table -->
 <div class="table-card">
     <div class="p-3 border-bottom border-light border-opacity-10">
-        <span style="font-size:.85rem;color:rgba(255, 255, 255, 0.6)">{{ $logs->total() }} log entries</span>
+        <span style="font-size:.85rem;color:var(--text-muted);">{{ $logs->total() }} log entries</span>
     </div>
     @if($logs->isEmpty())
-        <div class="text-center py-5 text-white-50">No logs found for the selected filters.</div>
+        <div class="text-center py-5" style="color: var(--text-muted);">No logs found for the selected filters.</div>
     @else
     <div class="table-responsive">
-        <table class="table table-hover mb-0 text-white">
+        <table class="table table-hover mb-0">
             <thead>
                 <tr>
                     <th style="width:90px">Type</th>
@@ -85,20 +85,20 @@
                         </span>
                     </td>
                     <td class="fw-500" style="font-size:1rem">{{ $log->action }}</td>
-                    <td style="font-size:0.95rem;color:rgba(255, 255, 255, 0.85);max-width:250px">
+                    <td style="font-size:0.95rem;color:var(--text-main);max-width:250px">
                         <span title="{{ $log->message }}">{{ \Illuminate\Support\Str::limit($log->message, 80) }}</span>
                     </td>
                     <td style="font-size:0.95rem">
                         @if($log->device)
-                            <div class="fw-500 text-white">{{ $log->device->name }}</div>
-                            <div style="font-size:0.85rem;color:rgba(255, 255, 255, 0.6)">{{ $log->device->device_id }}</div>
+                            <div class="fw-500" style="color:var(--text-main);">{{ $log->device->name }}</div>
+                            <div style="font-size:0.85rem;color:var(--text-muted);">{{ $log->device->device_id }}</div>
                         @else
-                            <span class="text-white-50">—</span>
+                            <span style="color:var(--text-muted);">—</span>
                         @endif
                     </td>
                     <td style="font-size:0.95rem">{{ $log->user->name ?? '—' }}</td>
-                    <td style="font-size:0.9rem;color:rgba(255, 255, 255, 0.6);font-family:monospace">{{ $log->ip_address ?? '—' }}</td>
-                    <td style="font-size:0.9rem;color:rgba(255, 255, 255, 0.7);white-space:nowrap">{{ $log->created_at->format('M d, H:i') }}</td>
+                    <td style="font-size:0.9rem;color:var(--text-muted);font-family:monospace">{{ $log->ip_address ?? '—' }}</td>
+                    <td style="font-size:0.9rem;color:var(--text-muted);white-space:nowrap">{{ $log->created_at->format('M d, H:i') }}</td>
                 </tr>
                 @endforeach
             </tbody>

@@ -6,20 +6,22 @@
 <style>
     /* Widget Card Base */
     .widget-card {
-        background: rgba(255, 255, 255, 0.03);
-        border-radius: 32px;
-        border: 1px solid rgba(255,255,255,0.08);
+        background: var(--glass-bg);
+        border-radius: 24px;
+        border: 1px solid var(--glass-border);
         padding: 1.8rem;
         height: 100%;
-        transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         position: relative;
         overflow: hidden;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        backdrop-filter: blur(50px);
-        -webkit-backdrop-filter: blur(50px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
     }
     .widget-card:hover {
-        transform: translateY(-4px);
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(139, 92, 246, 0.15);
+        border-color: rgba(139, 92, 246, 0.4);
     }
     
     /* Skeleton Shimmer Loading */
@@ -36,15 +38,15 @@
     }
     
     .widget-title {
-        font-family: 'DotGothic16', sans-serif;
-        font-size: 1.25rem;
-        color: #ffffff;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: var(--text-main);
         margin-bottom: 1.5rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        letter-spacing: 2px;
-        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     /* Range Slider (iOS Style Thick Slider) */
@@ -53,10 +55,10 @@
         width: 100%;
         height: 44px;
         border-radius: 22px;
-        background: rgba(255,255,255,0.1);
+        background: rgba(128,128,128,0.2);
         outline: none;
         margin: 10px 0;
-        border: 1px solid rgba(255,255,255,0.05);
+        border: 1px solid var(--glass-border);
         overflow: hidden; /* For fill effect */
     }
     .custom-range::-webkit-slider-thumb {
@@ -65,9 +67,9 @@
         width: 44px;
         height: 44px;
         border-radius: 50%;
-        background: #ffffff;
+        background: var(--primary);
         cursor: pointer;
-        box-shadow: -400px 0 0 380px #ffffff, 0 2px 10px rgba(0,0,0,0.2);
+        box-shadow: -400px 0 0 380px var(--primary), 0 2px 10px rgba(0,0,0,0.2);
     }
 
     /* Thermostat Dial Simulation (Warm Cinematic) */
@@ -133,20 +135,20 @@
 
     /* Control Buttons (Pill shaped translucent) */
     .control-btn {
-        background: rgba(255,255,255,0.1);
-        border: 1px solid rgba(255,255,255,0.2);
-        color: #ffffff;
+        background: rgba(128,128,128,0.1);
+        border: 1px solid var(--glass-border);
+        color: var(--text-main);
         padding: 0.8rem 1.5rem;
         border-radius: 30px;
         transition: all 0.3s ease;
         backdrop-filter: blur(10px);
         font-weight: 500;
-        font-family: 'Manrope', sans-serif;
+        font-family: 'Poppins', sans-serif;
     }
     .control-btn.active {
-        background: rgba(255, 255, 255, 0.8);
-        color: #000000;
-        box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+        background: rgba(128,128,128,0.2);
+        color: var(--text-main);
+        box-shadow: 0 5px 15px rgba(128,128,128,0.2);
         transform: translateY(-2px);
     }
     .control-btn:hover:not(.active) {
@@ -170,8 +172,8 @@
         align-items: center;
         gap: 15px;
         box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-        color: rgba(255,255,255,0.8);
-        font-family: 'Manrope', sans-serif;
+        color: var(--text-main);
+        font-family: 'Poppins', sans-serif;
         cursor: pointer;
         transition: transform 0.3s;
     }
@@ -189,14 +191,14 @@
         backdrop-filter: blur(10px);
     }
     .control-btn.active {
-        background: rgba(255,255,255,0.2);
-        border-color: rgba(255,255,255,0.4);
-        color: #fff;
-        box-shadow: 0 5px 15px rgba(255,255,255,0.1);
+        background: rgba(128,128,128,0.2);
+        border-color: var(--glass-border);
+        color: var(--text-main);
+        box-shadow: 0 5px 15px rgba(128,128,128,0.1);
         transform: translateY(-2px);
     }
     .control-btn:hover {
-        background: rgba(255,255,255,0.15);
+        background: rgba(128,128,128,0.15);
     }
 </style>
 @endpush
@@ -383,10 +385,10 @@
             
             <div class="d-flex flex-column gap-3">
                 @forelse($lights as $light)
-                    <div class="p-3 rounded-4" style="background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.05);">
+                    <div class="p-3 rounded-4" style="background: rgba(128,128,128,0.05); border: 1px solid var(--glass-border);">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <div class="d-flex align-items-center gap-3">
-                                <div id="light-icon-{{ $light->id }}" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; transition: all 0.3s; {{ $light->isOn() ? 'background: rgba(250, 204, 21, 0.15); color: #facc15;' : 'background: rgba(255,255,255,0.05); color: #888888;' }}">
+                                <div id="light-icon-{{ $light->id }}" style="width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; transition: all 0.3s; {{ $light->isOn() ? 'background: rgba(250, 204, 21, 0.15); color: #facc15;' : 'background: rgba(128,128,128,0.1); color: #888888;' }}">
                                     <i class="bi bi-lightbulb-fill"></i>
                                 </div>
                                 <div>

@@ -6,14 +6,21 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
     .admin-stat-card {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
+        background: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
         border-radius: 24px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         padding: 2rem;
         position: relative;
         overflow: hidden;
+        transition: all 0.3s ease;
+    }
+    .admin-stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        border-color: rgba(255,255,255,0.15);
     }
     .admin-stat-card::before {
         content: '';
@@ -21,9 +28,11 @@
         top: -50px; right: -50px;
         width: 150px; height: 150px;
         background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
-        opacity: 0.15;
+        opacity: 0.25;
         border-radius: 50%;
+        transition: opacity 0.3s;
     }
+    .admin-stat-card:hover::before { opacity: 0.4; }
     
     .leaflet-layer,
     .leaflet-control-zoom-in,
@@ -100,7 +109,7 @@
     <div class="col-lg-8">
         <div class="admin-stat-card h-100 p-0">
             <div class="p-4 border-bottom" style="border-color: rgba(0,0,0,0.05) !important;">
-                <h6 class="mb-0 fw-bold" style="font-family:'Space Grotesk', sans-serif; color: var(--text-main);">Device Locations (India)</h6>
+                <h6 class="mb-0 fw-bold" style="font-family:'Poppins', sans-serif; color: var(--text-main);">Device Locations (India)</h6>
             </div>
             <div class="p-4 relative">
                 <div id="india-map" style="height: 320px; border-radius: 16px; z-index: 1;"></div>
@@ -111,7 +120,7 @@
     <!-- System Health -->
     <div class="col-lg-4">
         <div class="admin-stat-card h-100">
-            <h6 class="mb-4 fw-bold" style="font-family:'Space Grotesk', sans-serif; color: var(--text-main);">System Health</h6>
+            <h6 class="mb-4 fw-bold" style="font-family:'Poppins', sans-serif; color: var(--text-main);">System Health</h6>
             <div class="sys-health-item">
                 <span style="color:var(--text-muted);"><i class="bi bi-hdd-network me-2"></i>Database</span>
                 <span class="badge bg-success bg-opacity-25 text-success rounded-pill px-3">Connected</span>
@@ -145,7 +154,7 @@
     <div class="col-12">
         <div class="admin-stat-card">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h6 class="mb-0 fw-bold" style="font-family:'Space Grotesk', sans-serif; color: var(--text-main);"><span class="spinner-grow spinner-grow-sm text-danger me-2" role="status"></span>Real-time Activity Feed</h6>
+                <h6 class="mb-0 fw-bold" style="font-family:'Poppins', sans-serif; color: var(--text-main);"><span class="spinner-grow spinner-grow-sm text-danger me-2" role="status"></span>Real-time Activity Feed</h6>
                 <a href="{{ route('admin.logs') }}" style="font-size:.85rem; color:var(--primary);">View All Logs</a>
             </div>
             

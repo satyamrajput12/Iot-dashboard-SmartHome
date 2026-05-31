@@ -37,7 +37,7 @@
         border-radius: 20px;
         background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
         display: flex; align-items: center; justify-content: center;
-        font-size: 1.8rem; color: #ffffff;
+        font-size: 1.8rem; color: var(--text-main);
         margin-bottom: 1.5rem;
         border: 1px solid rgba(255,255,255,0.1);
         box-shadow: inset 0 0 15px rgba(255,255,255,0.05);
@@ -52,12 +52,13 @@
     }
     
     .room-title {
-        font-family: 'DotGothic16', sans-serif;
+        font-family: 'Poppins', sans-serif;
         font-size: 1.5rem;
         margin-bottom: 0.5rem;
         letter-spacing: 2px;
         text-transform: uppercase;
-        color: #ffffff;
+        color: var(--text-main);
+        font-weight: 600;
     }
     
     .health-ring {
@@ -74,7 +75,7 @@
         width: 35px; height: 35px; background: rgba(0, 0, 0, 0.4); border-radius: 50%;
         box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
     }
-    .health-value { position: relative; z-index: 2; color: #fff; }
+    .health-value { position: relative; z-index: 2; color: var(--text-main); }
 </style>
 @endpush
 

@@ -47,7 +47,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        color: #ffffff;
+        color: var(--text-main);
     }
     
     .flip-card-back {
@@ -65,9 +65,9 @@
         margin: 0 auto;
         border-radius: 50%;
         display: flex;
-        background: rgba(255,255,255,0.15);
-        color: #ffffff;
-        box-shadow: inset 0 0 15px rgba(255,255,255,0.05);
+        background: rgba(128,128,128,0.15);
+        color: var(--text-main);
+        box-shadow: inset 0 0 15px rgba(128,128,128,0.05);
         transition: all 0.3s;
     }
     
@@ -248,8 +248,8 @@
                                 @endif
                             </div>
                             
-                            <div class="mt-3 font-dot" style="color: #ffffff; font-size: 1.25rem;">{{ $device->name }}</div>
-                            <div style="font-size:0.8rem; color:rgba(255,255,255,0.8);"><i class="bi bi-geo-alt me-1"></i>{{ $device->location }}</div>
+                            <div class="mt-3" style="color: var(--text-main); font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.25rem;">{{ $device->name }}</div>
+                            <div style="font-size:0.8rem; color: var(--text-muted);"><i class="bi bi-geo-alt me-1"></i>{{ $device->location }}</div>
                             
                             <div class="waveform">
                                 <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
@@ -264,7 +264,7 @@
                                     <span class="toggle-slider"></span>
                                 </label>
                             @else
-                                <span style="font-size:0.85rem; color: rgba(255,255,255,0.7) !important; font-weight: 500;">Pending Approval</span>
+                                <span style="font-size:0.85rem; color: var(--text-muted) !important; font-weight: 500;">Pending Approval</span>
                             @endif
                         </div>
                     </div>
@@ -276,12 +276,12 @@
                         </button>
                         <div class="text-center w-100 mt-2">
                             @if(isset($device->image) && $device->image)
-                                <img src="{{ asset('storage/' . $device->image) }}" alt="{{ $device->name }}" class="rounded-circle mb-3 shadow" style="width: 70px; height: 70px; object-fit: cover; border: 3px solid rgba(255,255,255,0.3);">
+                                <img src="{{ asset('storage/' . $device->image) }}" alt="{{ $device->name }}" class="rounded-circle mb-3 shadow" style="width: 70px; height: 70px; object-fit: cover; border: 3px solid var(--glass-border);">
                             @endif
-                            <div class="mb-2 font-dot" style="color: #ffffff; font-size: 1.25rem;">{{ $device->name }}</div>
-                            <div style="font-size:0.85rem; color:rgba(255,255,255,0.8); margin-bottom: 5px;">ID: <span style="font-family: monospace;">{{ $device->device_id }}</span></div>
-                            <div style="font-size:0.85rem; color:rgba(255,255,255,0.8); margin-bottom: 5px;">Type: {{ ucfirst($device->type) }}</div>
-                            <div style="font-size:0.85rem; color:rgba(255,255,255,0.8); margin-bottom: 20px;">
+                            <div class="mb-2" style="color: var(--text-main); font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.25rem;">{{ $device->name }}</div>
+                            <div style="font-size:0.85rem; color: var(--text-muted); margin-bottom: 5px;">ID: <span style="font-family: monospace;">{{ $device->device_id }}</span></div>
+                            <div style="font-size:0.85rem; color: var(--text-muted); margin-bottom: 5px;">Type: {{ ucfirst($device->type) }}</div>
+                            <div style="font-size:0.85rem; color: var(--text-muted); margin-bottom: 20px;">
                                 Last seen: {{ $device->last_seen ? $device->last_seen->diffForHumans() : 'Never' }}
                             </div>
                             

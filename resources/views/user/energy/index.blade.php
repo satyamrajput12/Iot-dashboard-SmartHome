@@ -60,7 +60,7 @@
     <h5 style="font-family:'Space Grotesk', sans-serif; margin-bottom: 1.5rem; color: var(--text-main);">Devices Ranked by Energy Usage</h5>
     
     <div class="table-responsive">
-        <table class="table table-borderless mb-0 align-middle" style="color: var(--text-main); --bs-table-bg: transparent; --bs-table-color: white;">
+        <table class="table table-borderless mb-0 align-middle" style="color: var(--text-main); --bs-table-bg: transparent; --bs-table-color: var(--text-main);">
             <thead style="border-bottom: 1px solid rgba(255,255,255,0.05);">
                 <tr>
                     <th class="text-muted fw-normal pb-3">Device Name</th>
@@ -119,8 +119,8 @@ document.addEventListener('DOMContentLoaded', function() {
             maintainAspectRatio: false,
             plugins: { legend: { display: false } },
             scales: {
-                x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.6)' } },
-                y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.6)' }, beginAtZero: true }
+                x: { grid: { display: false }, ticks: { color: '#888' } },
+                y: { grid: { color: 'rgba(128,128,128,0.2)' }, ticks: { color: '#888' }, beginAtZero: true }
             }
         }
     });

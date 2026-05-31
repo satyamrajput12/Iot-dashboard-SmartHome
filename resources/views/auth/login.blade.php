@@ -6,85 +6,93 @@
     <title>Log In — SmartHome</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
     <style>
-        * { font-family: 'Inter', sans-serif; }
-        body { margin: 0; padding: 0; background-color: #ffffff; overflow-x: hidden; }
+        * { font-family: 'Poppins', sans-serif; }
+        body { margin: 0; padding: 0; background-color: #0b1120; overflow-x: hidden; color: #ffffff; }
         .split-layout { display: flex; width: 100vw; min-height: 100vh; }
         
         /* Left Panel - Form Area */
-        .left-panel { flex: 1; display: flex; flex-direction: column; background: #ffffff; position: relative; z-index: 10; }
+        .left-panel { flex: 1; display: flex; flex-direction: column; background: #0b1120; position: relative; z-index: 10; border-right: 1px solid rgba(255,255,255,0.05); }
         .header-bar { padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
-        .brand-logo { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; font-weight: 800; color: #0f172a; letter-spacing: -0.5px; text-decoration: none; }
-        .brand-logo i { color: #2563eb; font-size: 1.8rem; }
+        .brand-logo { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; font-weight: 800; color: #ffffff; letter-spacing: -0.5px; text-decoration: none; }
+        .brand-logo i { color: #8b5cf6; font-size: 1.8rem; }
         
-        .nav-text { font-size: 0.95rem; color: #64748b; font-weight: 500; }
-        .nav-link { color: #2563eb; font-weight: 600; text-decoration: none; transition: all 0.2s; }
-        .nav-link:hover { color: #1d4ed8; text-decoration: underline; }
+        .nav-text { font-size: 0.95rem; color: rgba(255,255,255,0.6); font-weight: 500; }
+        .nav-link { color: #8b5cf6; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+        .nav-link:hover { color: #a78bfa; text-decoration: underline; }
         
         .form-wrapper { max-width: 440px; width: 100%; margin: auto; padding: 2rem; }
-        .form-title { font-size: 2.2rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; letter-spacing: -1px; }
-        .form-subtitle { font-size: 1rem; color: #64748b; margin-bottom: 2.5rem; line-height: 1.5; }
+        .form-title { font-size: 2.2rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem; letter-spacing: -1px; }
+        .form-subtitle { font-size: 1rem; color: rgba(255,255,255,0.6); margin-bottom: 2.5rem; line-height: 1.5; }
         
         .form-control {
-            background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
+            background-color: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 12px;
             padding: 0.85rem 1.2rem;
             font-size: 0.95rem;
-            color: #0f172a;
+            color: #ffffff !important;
             transition: all 0.2s;
             box-shadow: none;
         }
-        .form-control::placeholder { color: #94a3b8; font-weight: 400; }
+        .form-control::placeholder { color: rgba(255,255,255,0.4); font-weight: 400; }
         .form-control:focus {
-            background-color: #ffffff;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            background-color: rgba(255,255,255,0.05);
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
+            color: #ffffff !important;
         }
         
+        .form-label, .form-check-label { color: rgba(255,255,255,0.8) !important; }
+        
         .input-group-gap { margin-bottom: 1.25rem; position: relative; }
-        .password-toggle { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: #94a3b8; cursor: pointer; font-size: 1.1rem; transition: color 0.2s; }
-        .password-toggle:hover { color: #475569; }
+        .password-toggle { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5); cursor: pointer; font-size: 1.1rem; transition: color 0.2s; }
+        .password-toggle:hover { color: rgba(255,255,255,0.8); }
         
         .form-actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; font-size: 0.9rem; }
-        .forgot-link { color: #2563eb; text-decoration: none; font-weight: 500; }
+        .forgot-link { color: #8b5cf6; text-decoration: none; font-weight: 500; }
         .forgot-link:hover { text-decoration: underline; }
         
         .btn-submit {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
             border: none; font-weight: 600; padding: 0.9rem;
             border-radius: 12px; color: white; width: 100%;
             transition: all 0.3s; font-size: 1rem; letter-spacing: 0.3px;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
         }
-        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3); color: white; }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6); color: white; }
         
-        .divider { display: flex; align-items: center; text-align: center; margin: 1.5rem 0; color: #94a3b8; font-size: 0.85rem; font-weight: 500; }
-        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #e2e8f0; }
+        .divider { display: flex; align-items: center; text-align: center; margin: 1.5rem 0; color: rgba(255,255,255,0.4); font-size: 0.85rem; font-weight: 500; }
+        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .divider span { padding: 0 15px; }
         
         .btn-google {
-            background: #ffffff; border: 1px solid #e2e8f0; color: #0f172a; font-weight: 600;
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #ffffff; font-weight: 600;
             padding: 0.85rem; border-radius: 12px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
             transition: all 0.2s; font-size: 0.95rem;
         }
-        .btn-google:hover { background: #f8fafc; border-color: #cbd5e1; }
+        .btn-google:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
         
-        .demo-box { background: rgba(59, 130, 246, 0.05); border: 1px dashed rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 1rem 1.25rem; margin-top: 2rem; font-size: 0.85rem; color: #475569; }
-        .demo-box strong { color: #1e293b; }
+        .demo-box { background: rgba(139, 92, 246, 0.05); border: 1px dashed rgba(139, 92, 246, 0.3); border-radius: 12px; padding: 1rem 1.25rem; margin-top: 2rem; font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+        .demo-box strong { color: #ffffff; }
         
         /* Right Panel - Showcase Area */
         .right-panel {
             flex: 1; 
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: #060913;
             display: flex; flex-direction: column; align-items: center; 
             padding: 2rem; position: sticky; top: 0; height: 100vh; align-self: flex-start; overflow-y: auto; overflow-x: hidden;
+            border-left: 1px solid rgba(255,255,255,0.02);
         }
         
         /* Decorative Background Elements */
-        .bg-shape-1 { position: absolute; top: -10%; right: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(0,0,0,0) 70%); border-radius: 50%; }
-        .bg-shape-2 { position: absolute; bottom: -10%; left: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, rgba(0,0,0,0) 70%); border-radius: 50%; }
+        .bg-shape-1 { position: absolute; top: -10%; right: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(139,92,246,0.15) 0%, rgba(0,0,0,0) 70%); border-radius: 50%; }
+        .bg-shape-2 { position: absolute; bottom: -10%; left: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, rgba(0,0,0,0) 70%); border-radius: 50%; }
         
         .showcase-content { max-width: 500px; position: relative; z-index: 2; width: 100%; text-align: center; margin-top: auto; margin-bottom: auto; padding: 2rem 0; }
         
@@ -97,7 +105,7 @@
         }
         
         .showcase-text h2 { color: white; font-size: 1.8rem; font-weight: 800; margin-bottom: 0.75rem; letter-spacing: -0.5px; }
-        .showcase-text p { color: #94a3b8; font-size: 0.95rem; line-height: 1.5; max-width: 450px; margin: 0 auto; }
+        .showcase-text p { color: rgba(255,255,255,0.6); font-size: 0.95rem; line-height: 1.5; max-width: 450px; margin: 0 auto; }
         
         /* Animations */
         .fade-in-up { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
@@ -112,6 +120,33 @@
             .header-bar { padding: 1.5rem; }
             .form-wrapper { padding: 1.5rem; }
         }
+
+        /* Light Theme Overrides */
+        [data-theme="light"] body { background-color: #f8fafc; color: #0f172a; }
+        [data-theme="light"] .left-panel { background-color: #f8fafc; border-right: 1px solid rgba(0,0,0,0.05); }
+        [data-theme="light"] .right-panel { background-color: #f1f5f9; border-left: 1px solid rgba(0,0,0,0.05); }
+        [data-theme="light"] .brand-logo { color: #0f172a; }
+        [data-theme="light"] .nav-text { color: #475569; }
+        [data-theme="light"] .form-title { color: #0f172a; }
+        [data-theme="light"] .form-subtitle { color: #475569; }
+        [data-theme="light"] .form-label, [data-theme="light"] .form-check-label { color: #334155 !important; }
+        [data-theme="light"] .form-control { background-color: #ffffff; border-color: #cbd5e1; color: #0f172a !important; }
+        [data-theme="light"] .form-control:focus { background-color: #ffffff; border-color: #8b5cf6; box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15); }
+        [data-theme="light"] .form-control::placeholder { color: #94a3b8; }
+        [data-theme="light"] .password-toggle { color: #94a3b8; }
+        [data-theme="light"] .divider { color: #94a3b8; }
+        [data-theme="light"] .divider::before, [data-theme="light"] .divider::after { border-bottom: 1px solid #e2e8f0; }
+        [data-theme="light"] .btn-google { background-color: #ffffff; border-color: #cbd5e1; color: #334155; }
+        [data-theme="light"] .btn-google:hover { background-color: #f8fafc; }
+        [data-theme="light"] .showcase-text h2 { color: #0f172a; }
+        [data-theme="light"] .showcase-text p { color: #475569; }
+        [data-theme="light"] .demo-box { background: rgba(139, 92, 246, 0.05); border: 1px dashed rgba(139, 92, 246, 0.3); color: #475569; }
+        [data-theme="light"] .demo-box strong { color: #0f172a; }
+
+        /* Smooth Transitions */
+        body, .left-panel, .right-panel, .form-control, .btn-google, .nav-text, .brand-logo, .form-title, .form-subtitle, .showcase-text h2, .showcase-text p {
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+        }
     </style>
 </head>
 <body>
@@ -123,8 +158,11 @@
                 <a href="/" class="brand-logo">
                     <i class="bi bi-house-gear-fill"></i> SmartHome
                 </a>
-                <div class="nav-text">
-                    New user? <a href="{{ route('register') }}" class="nav-link">Create an account</a>
+                <div class="nav-text" style="display:flex; align-items:center; gap: 1rem;">
+                    <button id="theme-toggle" style="background:none; border:none; color:inherit; font-size:1.2rem; cursor:pointer;" title="Toggle Theme">
+                        <i class="bi bi-moon-fill" id="theme-icon"></i>
+                    </button>
+                    <div>New user? <a href="{{ route('register') }}" class="nav-link">Create an account</a></div>
                 </div>
             </div>
             
@@ -216,6 +254,33 @@
             this.classList.toggle('bi-eye');
             this.classList.toggle('bi-eye-slash');
         });
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        function updateThemeIcon(theme) {
+            if (theme === 'light') {
+                themeIcon.classList.remove('bi-sun-fill');
+                themeIcon.classList.add('bi-moon-fill');
+            } else {
+                themeIcon.classList.remove('bi-moon-fill');
+                themeIcon.classList.add('bi-sun-fill');
+            }
+        }
+        
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        if(themeIcon) { updateThemeIcon(currentTheme); }
+
+        if(themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                let theme = document.documentElement.getAttribute('data-theme');
+                let newTheme = theme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+            });
+        }
     </script>
 </body>
 </html>

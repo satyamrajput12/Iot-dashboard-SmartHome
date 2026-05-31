@@ -129,7 +129,7 @@
         <div class="widget-card p-4" style="background: var(--glass-bg); backdrop-filter: var(--glass-blur); border-radius: 40px; border: 1px solid var(--glass-border); box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
             <h5 class="font-dot" style="margin-bottom: 1.5rem; color: var(--text-main); font-weight: 600;">Invoice History</h5>
             <div class="table-responsive">
-                <table class="table table-borderless mb-0" style="--bs-table-bg: transparent; --bs-table-color: white;">
+                <table class="table table-borderless mb-0" style="--bs-table-bg: transparent; --bs-table-color: var(--text-main);">
                     <thead style="border-bottom: 1px solid rgba(255,255,255,0.05);">
                         <tr>
                             <th class="text-muted fw-normal" style="padding-bottom:10px;">Date</th>
